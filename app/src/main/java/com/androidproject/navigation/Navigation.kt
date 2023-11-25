@@ -29,7 +29,7 @@ fun AppNavigation() {
             startDestination = HOME_ROUTE,
         ) {
             composable(HOME_ROUTE) {
-                HomeScreen(paddingValues)
+                HomeScreen(paddingValues, navController)
             }
             composable(SEARCH_ROUTE) {
                 SearchScreen(paddingValues)
