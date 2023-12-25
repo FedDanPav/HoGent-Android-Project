@@ -33,7 +33,7 @@ fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostControlle
         Label(
             label = { }) {
                 Text(
-                    text = "Welcome to the Home Page",
+                    text = "Welcome!",
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -49,7 +49,7 @@ fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostControlle
         Label(
             label = { }) {
             Text(
-                text = "Use the bottom menu to start searching!",
+                text = "Use the bottom bar to start searching!",
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -61,6 +61,30 @@ fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostControlle
             }
         ) {
             Text(text = "Search")
+        }
+
+        Label(
+            label = { }) {
+            Text(
+                text = "Made by:",
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+        Label(
+            label = { }) {
+            Text(
+                text = "Fedor Danilov",
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+        Label(
+            label = { }) {
+            Text(
+                text = "For HoGent project",
+                style = MaterialTheme.typography.bodyLarge
+            )
         }
     }
 }
