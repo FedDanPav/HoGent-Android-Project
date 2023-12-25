@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
-import com.androidproject.navigation.Destinations.SEARCH_ROUTE
+import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
