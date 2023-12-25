@@ -9,16 +9,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Label
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavHostController
+import com.androidproject.navigation.Destinations.SEARCH_ROUTE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(paddingValues: PaddingValues) {
+fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostController? = null) {
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -50,6 +53,14 @@ fun HomeScreen(paddingValues: PaddingValues) {
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
             )
+        }
+
+        OutlinedButton(
+            onClick = {
+                navHostController?.navigate(SEARCH_ROUTE)
+            }
+        ) {
+            Text(text = "Search")
         }
     }
 }

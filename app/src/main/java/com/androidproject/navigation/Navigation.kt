@@ -8,10 +8,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.androidproject.navigation.Destinations.HOME_ROUTE
+import com.androidproject.navigation.Destinations.SEARCH_ROUTE
 import com.androidproject.screens.HomeScreen
+import com.androidproject.screens.SearchScreen
 
 object Destinations {
     const val HOME_ROUTE = "home"
+    const val SEARCH_ROUTE = "search"
 }
 
 @Composable
@@ -26,7 +29,10 @@ fun AppNavigation() {
             startDestination = HOME_ROUTE,
         ) {
             composable(HOME_ROUTE) {
-                HomeScreen(paddingValues)
+                HomeScreen(paddingValues, navController)
+            }
+            composable(SEARCH_ROUTE) {
+                SearchScreen(paddingValues)
             }
         }
     }
