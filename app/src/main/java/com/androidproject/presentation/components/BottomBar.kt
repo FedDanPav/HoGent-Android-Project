@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.androidproject.R
+import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 
 data class BottomNavigationItem(
@@ -33,10 +34,10 @@ fun BottomBar(navHostController: NavHostController) {
             selectedIcon = R.drawable.baseline_description_24,
             unselectedIcon = R.drawable.baseline_description_24,
         ) {
-///            navHostController.navigate(ABOUT_ROUTE) {
-///                popUpTo(navHostController.graph.findStartDestination().id)
-///                launchSingleTop = true
-///            }
+            navHostController.navigate(HOME_ROUTE) {
+                popUpTo(navHostController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
         },
 
         BottomNavigationItem(
