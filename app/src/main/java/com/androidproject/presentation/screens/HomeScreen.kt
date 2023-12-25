@@ -1,4 +1,4 @@
-package com.androidproject.screens
+package com.androidproject.presentation.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

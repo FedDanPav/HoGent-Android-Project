@@ -10,8 +10,8 @@ import androidx.navigation.compose.rememberNavController
 import com.androidproject.presentation.components.BottomBar
 import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
-import com.androidproject.screens.HomeScreen
-import com.androidproject.screens.SearchScreen
+import com.androidproject.presentation.screens.HomeScreen
+import com.androidproject.presentation.screens.SearchScreen
 
 object Destinations {
     const val HOME_ROUTE = "home"
