@@ -3,7 +3,6 @@ package com.androidproject.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -12,9 +11,10 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +35,7 @@ fun SearchScreen(paddingValues: PaddingValues){
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Search Filters",
+            text = "Search",
             style = MaterialTheme.typography.displayLarge,
             fontWeight = FontWeight.Bold
         )
@@ -48,11 +48,14 @@ fun SearchScreen(paddingValues: PaddingValues){
         ) {
             items(movieSearchOptionsStrings) { option ->
                 Column {
-                    OutlinedCard(
+                    Card(
                         modifier = Modifier
                             .align(Alignment.CenterHorizontally)
                     ) {
-                        Text(text = option)
+                        Text(
+                            text = option,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                     OutlinedTextField(
                         value = "",
@@ -69,6 +72,14 @@ fun SearchScreen(paddingValues: PaddingValues){
                     Text(text = option)
                 }
             }
+        }
+
+        HorizontalDivider()
+
+        OutlinedButton(
+            onClick = { /*TODO*/ }
+        ) {
+            Text(text = "Search")
         }
     }
 }
