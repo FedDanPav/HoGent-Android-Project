@@ -5,5 +5,5 @@ val movieSearchOptionsBools: List<String> = listOf(
 )
 
 val movieSearchOptionsStrings: List<String> = listOf(
-    "language", "release year", "original country", "genre"
+    "language", "release year", "original country"
 )
