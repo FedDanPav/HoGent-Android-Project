@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens
+package com.androidproject.presentation.screens.misc
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.size

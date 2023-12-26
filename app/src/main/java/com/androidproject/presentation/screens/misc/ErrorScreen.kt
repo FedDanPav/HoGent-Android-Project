@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens
+package com.androidproject.presentation.screens.misc
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -23,11 +23,11 @@ fun ErrorScreen(modifier: Modifier = Modifier, error: String?) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //Image(
-        //    modifier = modifier.size(200.dp),
-        //    painter = painterResource(id = R.drawable.),
-        //    contentDescription = "Error"
-        //)
+        Image(
+            modifier = modifier.size(200.dp),
+            painter = painterResource(id = R.drawable.priority_high_24px),
+            contentDescription = "Error"
+        )
         Text(
             text = error ?: stringResource(id = R.string.error),
             modifier = Modifier.padding(16.dp)
