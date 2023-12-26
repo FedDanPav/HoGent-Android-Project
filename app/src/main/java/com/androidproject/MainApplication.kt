@@ -1,8 +1,8 @@
 package com.androidproject
 
 import android.app.Application
-import com.androidproject.modules.AppModule
-import com.androidproject.modules.DefaultAppModule
+import com.androidproject.data.AppModule
+import com.androidproject.data.DefaultAppModule
 
 class MainApplication : Application() {
     lateinit var container: AppModule

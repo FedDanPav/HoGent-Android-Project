@@ -1,4 +1,4 @@
-package com.androidproject.modules
+package com.androidproject.data
 
 import android.content.Context
 import com.androidproject.BuildConfig
