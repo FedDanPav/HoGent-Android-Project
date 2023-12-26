@@ -1,7 +1,9 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
     kotlin("kapt")
+    id("org.jetbrains.dokka") version "1.9.10"
 }
 
 android {
@@ -41,11 +43,11 @@ android {
 
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -76,11 +78,6 @@ dependencies {
 
     //kotlinx serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-
-    // dagger hilt
-    implementation("com.google.dagger:hilt-android:2.44")
-    kapt("com.google.dagger:hilt-android-compiler:2.44")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     // retrofit - okhttp3
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

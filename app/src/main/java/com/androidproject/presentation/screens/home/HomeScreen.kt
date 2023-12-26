@@ -1,11 +1,13 @@
-package com.androidproject.presentation.screens
+package com.androidproject.presentation.screens.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Label
 import androidx.compose.material3.MaterialTheme
@@ -14,14 +16,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.NavHostController
-import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostController? = null) {
+fun HomeScreen(
+    paddingValues: PaddingValues,
+    navToSearch: (() -> Unit)? = null
+) {
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -41,7 +46,7 @@ fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostControlle
         Label(
             label = { }) {
             Text(
-                text = "Here you'll be able to find random movies to watch",
+                text = "You'll be able to find random movies to watch",
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -57,7 +62,9 @@ fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostControlle
 
         OutlinedButton(
             onClick = {
-                navHostController?.navigate(SEARCH_ROUTE)
+                if (navToSearch != null) {
+                    navToSearch()
+                }
             }
         ) {
             Text(text = "Search")
@@ -86,6 +93,22 @@ fun HomeScreen(paddingValues: PaddingValues, navHostController: NavHostControlle
                 style = MaterialTheme.typography.bodyLarge
             )
         }
+
+        Label(
+            label = { }) {
+            Text(
+                text = "Powered by",
+                style = MaterialTheme.typography.bodyLarge
+            )
+        }
+
+        Image(
+            painter = painterResource(
+            id = com.androidproject.R.drawable.tmdb
+            ),
+            contentDescription = "TMDB",
+            modifier = Modifier.size(50.dp, 50.dp)
+        )
     }
 }
 
