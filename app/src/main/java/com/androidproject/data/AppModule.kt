@@ -6,7 +6,9 @@ import com.androidproject.data.remote.ApiMovieRepository
 import com.androidproject.data.remote.GenreRepository
 import com.androidproject.data.remote.MovieRepository
 import com.androidproject.data.remote.TheMovieDBApi
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -17,11 +19,6 @@ interface AppModule {
 }
 
 class DefaultAppModule(context: Context) : AppModule {
-    private val json = Json {
-        ignoreUnknownKeys = true
-        coerceInputValues = true
-    }
-
     fun provideMovieApi(): TheMovieDBApi {
         val client = OkHttpClient()
             .newBuilder()

@@ -14,6 +14,7 @@ import com.androidproject.presentation.navigation.Destinations.SEARCH_RESULTS_RO
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 import com.androidproject.presentation.screens.home.HomeScreen
 import com.androidproject.presentation.screens.search.SearchScreen
+import com.androidproject.presentation.screens.searchResults.SearchResultsScreen
 
 object Destinations {
     const val HOME_ROUTE = "home"
@@ -46,6 +47,9 @@ fun AppNavigation(
                 SearchScreen(paddingValues) {
                     navController.navigate(SEARCH_RESULTS_ROUTE)
                 }
+            }
+            composable(SEARCH_RESULTS_ROUTE) {
+                SearchResultsScreen(paddingValues)
             }
         }
     }

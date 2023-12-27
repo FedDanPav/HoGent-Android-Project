@@ -90,23 +90,18 @@ fun SearchScreen(
 
             is Resource.Success -> {
                 genreUiState.data?.let {
-                    SearchOptions(genres =  it)
+                    SearchOptions(genres =  it, navigateToSearchResults = navigateToSearchResults)
                 }
             }
-        }
-
-        HorizontalDivider()
-
-        OutlinedButton(
-            onClick = {  }
-        ) {
-            Text(text = "Search")
         }
     }
 }
 
 @Composable
-fun SearchOptions(genres: List<Genre>) {
+fun SearchOptions(
+    genres: List<Genre>,
+    navigateToSearchResults: (input: String) -> Unit
+) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth(),
@@ -142,6 +137,14 @@ fun SearchOptions(genres: List<Genre>) {
                 Text(text = option)
             }
         }
+    }
+
+    HorizontalDivider()
+
+    OutlinedButton(
+        onClick = { navigateToSearchResults("") }
+    ) {
+        Text(text = "Search")
     }
 }
 
