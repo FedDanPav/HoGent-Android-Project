@@ -1,8 +1,6 @@
 package com.androidproject.data.remote
 
-import android.util.Log
 import com.androidproject.data.remote.dto.genres.toDomainList
-import com.androidproject.data.remote.dto.genres.toDomainObject
 import com.androidproject.model.Genre
 import com.androidproject.util.Resource
 
