@@ -76,14 +76,16 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3-android:1.2.0-alpha11")
 
-    //kotlinx serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
-
-    // retrofit - okhttp3
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:1.0.0")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation("com.squareup.retrofit2:converter-jackson:2.9.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.10.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    
+    //kotlinx serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // Test implementations
     testImplementation("junit:junit:4.13.2")

@@ -7,12 +7,14 @@ import com.androidproject.data.remote.ApiMovieRepository
 import com.androidproject.data.remote.GenreRepository
 import com.androidproject.data.remote.MovieRepository
 import com.androidproject.data.remote.TheMovieDBApi
-import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -66,26 +68,27 @@ class DefaultAppModule(context: Context) : AppModule {
     }
 
     fun provideMovieApi(): TheMovieDBApi {
-        val okHttpClient = OkHttpClient.Builder()
-        val logging = HttpLoggingInterceptor()
-        logging.setLevel(HttpLoggingInterceptor.Level.BODY)
+        val client = OkHttpClient()
+            .newBuilder()
+            .addInterceptor(RequestInterceptor)
+            .build()
 
-        // if in debug mode, accept all ssl certificates
-        val client = if (BuildConfig.DEBUG) {
-            if (BuildConfig.ENABLE_LOGGING) {
-                getUnsafeOkHttpClient().addInterceptor(logging).build()
-            } else {
-                getUnsafeOkHttpClient().build()
-            }
-        } else {
-            okHttpClient.build()
-        }
-
-        return Retrofit.Builder().baseUrl(TheMovieDBApi.BASE_URL).addConverterFactory(
-            json.asConverterFactory(
-                "application/json; charset=UTF8".toMediaType()
+        return Retrofit.Builder()
+            .baseUrl(TheMovieDBApi.BASE_URL)
+            .addConverterFactory(
+                JacksonConverterFactory.create()
             )
-        ).client(client).build().create(TheMovieDBApi::class.java)
+            .client(client)
+            .build()
+            .create(TheMovieDBApi::class.java)
+    }
+
+    object RequestInterceptor : Interceptor {
+        override fun intercept(chain: Interceptor.Chain): Response {
+            val request = chain.request()
+            println("Outgoing request to ${request.url}")
+            return chain.proceed(request)
+        }
     }
 
     private val theMovieDBApi: TheMovieDBApi = provideMovieApi()

@@ -1,4 +1,4 @@
-package com.androidproject.data.remote.dto
+package com.androidproject.data.remote.dto.movies
 
 import com.androidproject.model.Movie
 import kotlinx.serialization.Serializable

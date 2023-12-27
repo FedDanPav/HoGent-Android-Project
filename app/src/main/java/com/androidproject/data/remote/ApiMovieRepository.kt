@@ -1,6 +1,6 @@
 package com.androidproject.data.remote
 
-import com.androidproject.data.remote.dto.toDomainObject
+import com.androidproject.data.remote.dto.movies.toDomainObject
 import com.androidproject.model.Movie
 import com.androidproject.util.Resource
 
