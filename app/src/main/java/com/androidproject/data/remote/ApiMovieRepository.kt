@@ -1,6 +1,6 @@
 package com.androidproject.data.remote
 
-import com.androidproject.data.remote.dto.movies.toDomainObject
+import com.androidproject.data.remote.dto.movies.toDomainList
 import com.androidproject.model.Movie
 import com.androidproject.util.Resource
 
@@ -13,7 +13,7 @@ class ApiMovieRepository (
 ) : MovieRepository {
     override suspend fun getMovies(): Resource<List<Movie>> {
         return try {
-            val movies = tmdbApi.getMovies().map { it.toDomainObject() }
+            val movies = tmdbApi.getMovies().toDomainList()
             Resource.Success(movies)
         } catch (e: Exception) {
             Resource.Error(e.message ?: "An unknown error occurred")

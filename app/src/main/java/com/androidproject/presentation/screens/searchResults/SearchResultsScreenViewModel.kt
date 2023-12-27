@@ -1,5 +1,6 @@
-package com.androidproject.presentation.screens.search
+package com.androidproject.presentation.screens.searchResults
 
+import com.androidproject.data.remote.MovieRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
@@ -8,29 +9,39 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.androidproject.MainApplication
 import com.androidproject.data.remote.GenreRepository
 import com.androidproject.model.Genre
+import com.androidproject.model.Movie
 import com.androidproject.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class SearchScreenViewModel (
+class SearchResultsScreenViewModel (
     private val genreRepository: GenreRepository,
+    private val movieRepository: MovieRepository
 ) : ViewModel()  {
-    // initial value is Loading
     private val _genres = MutableStateFlow<Resource<List<Genre>>>(
         Resource.Loading()
     )
+
+    private val _movies = MutableStateFlow<Resource<List<Movie>>>(
+        Resource.Loading()
+    )
+
     val genresUiState : StateFlow<Resource<List<Genre>>> = _genres.asStateFlow()
+    val moviesUiState : StateFlow<Resource<List<Movie>>> = _movies.asStateFlow()
 
     init {
-        loadGenres()
+        load()
     }
 
-    private fun loadGenres() {
+    private fun load() {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
             _genres.value = genresResource
+
+            val movieResource = movieRepository.getMovies()
+            _movies.value = movieResource
         }
     }
 
@@ -41,10 +52,12 @@ class SearchScreenViewModel (
                     (
                             this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
                                     as MainApplication
-                    )
+                            )
                 val genreRepository = application.container.apiGenreRepository
-                SearchScreenViewModel(
-                    genreRepository
+                val movieRepository = application.container.apiMovieRepository
+
+                SearchResultsScreenViewModel(
+                    genreRepository, movieRepository
                 )
             }
         }
