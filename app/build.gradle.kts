@@ -24,10 +24,6 @@ android {
 
     buildTypes {
         buildTypes {
-            getByName("debug") {
-                buildConfigField("boolean", "ENABLE_LOGGING", "true")
-                manifestPlaceholders["networkSecurityConfig"] = "@xml/network_security_config_debug"
-            }
             getByName("release") {
                 buildConfigField("boolean", "ENABLE_LOGGING", "false")
                 manifestPlaceholders["networkSecurityConfig"] =

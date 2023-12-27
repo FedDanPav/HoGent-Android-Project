@@ -26,42 +26,6 @@ interface AppModule {
 }
 
 class DefaultAppModule(context: Context) : AppModule {
-    private fun getUnsafeOkHttpClient(): OkHttpClient.Builder {
-        try {
-            // Create a trust manager that does not validate certificate chains
-            val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
-                override fun checkClientTrusted(
-                    chain: Array<out X509Certificate>?,
-                    authType: String?
-                ) {
-                }
-
-                override fun checkServerTrusted(
-                    chain: Array<out X509Certificate>?,
-                    authType: String?
-                ) {
-                }
-
-                override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-            })
-
-            // Install the all-trusting trust manager
-            val sslContext = SSLContext.getInstance("SSL")
-            sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-
-            // Create an ssl socket factory with our all-trusting manager
-            val sslSocketFactory = sslContext.socketFactory
-
-            val builder = OkHttpClient.Builder()
-            builder.sslSocketFactory(sslSocketFactory, trustAllCerts[0] as X509TrustManager)
-            builder.hostnameVerifier { _, _ -> true }
-
-            return builder
-        } catch (e: Exception) {
-            throw RuntimeException(e)
-        }
-    }
-
     private val json = Json {
         ignoreUnknownKeys = true
         coerceInputValues = true
@@ -70,7 +34,6 @@ class DefaultAppModule(context: Context) : AppModule {
     fun provideMovieApi(): TheMovieDBApi {
         val client = OkHttpClient()
             .newBuilder()
-            .addInterceptor(RequestInterceptor)
             .build()
 
         return Retrofit.Builder()
@@ -81,14 +44,6 @@ class DefaultAppModule(context: Context) : AppModule {
             .client(client)
             .build()
             .create(TheMovieDBApi::class.java)
-    }
-
-    object RequestInterceptor : Interceptor {
-        override fun intercept(chain: Interceptor.Chain): Response {
-            val request = chain.request()
-            println("Outgoing request to ${request.url}")
-            return chain.proceed(request)
-        }
     }
 
     private val theMovieDBApi: TheMovieDBApi = provideMovieApi()

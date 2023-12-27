@@ -160,6 +160,7 @@ fun GenresForSearch(genres: List<Genre>) {
         }
 
         DropdownMenu(
+            modifier = Modifier.fillMaxWidth(),
             expanded = menuExpanded,
             onDismissRequest = { menuExpanded = false },
         ) {
