@@ -1,24 +1,27 @@
 package com.androidproject.presentation.screens.search
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
-import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ExposedDropdownMenuBox
+import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -40,6 +43,7 @@ import com.androidproject.presentation.screens.misc.ErrorScreen
 import com.androidproject.presentation.screens.misc.LoadingScreen
 import com.androidproject.util.Resource
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     paddingValues: PaddingValues,
@@ -59,7 +63,7 @@ fun SearchScreen(
 fun SearchScreen(
     paddingValues : PaddingValues,
     genreUiState : Resource<List<Genre>>
-){
+) {
     Column(
         modifier = Modifier
             .padding(paddingValues)
@@ -85,7 +89,7 @@ fun SearchScreen(
 
             is Resource.Success -> {
                 genreUiState.data?.let {
-                    SearchOptions(it)
+                    SearchOptions(genres =  it)
                 }
             }
         }
@@ -102,12 +106,10 @@ fun SearchScreen(
 
 @Composable
 fun SearchOptions(genres: List<Genre>) {
-    LazyHorizontalGrid(
+    LazyColumn(
         modifier = Modifier
-            .height((movieSearchOptionsStrings.size).times(70).dp)
             .fillMaxWidth(),
-        rows = GridCells.Fixed(movieSearchOptionsStrings.size),
-        horizontalArrangement = Arrangement.Center
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         items(movieSearchOptionsStrings) { option ->
             Column {
@@ -127,7 +129,7 @@ fun SearchOptions(genres: List<Genre>) {
             }
         }
         item {
-            GenresForSearch(genres)
+            GenresForSearch(genres = genres)
         }
     }
 
@@ -142,6 +144,7 @@ fun SearchOptions(genres: List<Genre>) {
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GenresForSearch(genres: List<Genre>) {
     Column {
@@ -158,19 +161,44 @@ fun GenresForSearch(genres: List<Genre>) {
         var menuExpanded by remember {
             mutableStateOf(false)
         }
+        var textFieldValue by remember { mutableStateOf("") }
 
-        DropdownMenu(
-            modifier = Modifier.fillMaxWidth(),
+        ExposedDropdownMenuBox(
             expanded = menuExpanded,
-            onDismissRequest = { menuExpanded = false },
+            onExpandedChange = {
+                menuExpanded = !menuExpanded
+            }
         ) {
-            genres.forEach{
-                DropdownMenuItem(
-                    text = { it.name },
-                    onClick = {
-                        menuExpanded = false
+            TextField(
+                modifier = Modifier
+                    .menuAnchor(), // menuAnchor modifier must be passed to the text field for correctness
+                value = textFieldValue,
+                onValueChange = { newValue ->
+                    textFieldValue = newValue
+                },
+                label = { Text("Genres") },
+                trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = menuExpanded) },
+                colors = ExposedDropdownMenuDefaults.textFieldColors(),
+            )
+
+            // filter options based on text field value
+            val filteringOptions = genres.filter { it.name.contains(textFieldValue, ignoreCase = true) }
+            if (filteringOptions.isNotEmpty()) {
+                ExposedDropdownMenu(
+                    expanded = menuExpanded,
+                    onDismissRequest = { menuExpanded = false },
+                ) {
+                    filteringOptions.forEach { selectedGenre ->
+                        DropdownMenuItem(
+                            text = { Text(selectedGenre.name) },
+                            onClick = {
+                                textFieldValue = selectedGenre.name
+                                menuExpanded = false
+                            },
+                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
+                        )
                     }
-                )
+                }
             }
         }
     }
