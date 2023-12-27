@@ -4,12 +4,19 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
@@ -87,5 +94,34 @@ fun ResultOverview(
     genres : List<Genre>,
     movies : List<Movie>
 ) {
+    LazyHorizontalGrid(
+        modifier = Modifier.fillMaxSize(),
+        rows = GridCells.Fixed(1)
+    ) {
+        items(movies) {
+            MovieCard(movie = it)
+        }
+    }
+}
 
+@Composable
+fun MovieCard(movie: Movie) {
+    OutlinedCard {
+        AsyncImage(
+            model = movie.posterPath,
+            contentDescription = movie.title
+        )
+
+        Text(text = movie.title)
+
+        VerticalDivider()
+
+        Text(text = "Description")
+        Text(text = movie.overview)
+
+        VerticalDivider()
+
+        Text(text = "Votes/average")
+        Text(text = "${movie.voteCount}/${movie.voteAverage}")
+    }
 }

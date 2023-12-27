@@ -31,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.androidproject.R
@@ -48,20 +47,23 @@ fun SearchScreen(
     paddingValues: PaddingValues,
     viewModel: SearchScreenViewModel = viewModel(
         factory = SearchScreenViewModel.Factory
-    )
+    ),
+    navigateToSearchResults : (input: String) -> Unit
 ) {
     val state by viewModel.genresUiState.collectAsState()
 
     SearchScreen(
         paddingValues = paddingValues,
-        genreUiState = state
+        genreUiState = state,
+        navigateToSearchResults = navigateToSearchResults
     )
 }
 
 @Composable
 fun SearchScreen(
     paddingValues : PaddingValues,
-    genreUiState : Resource<List<Genre>>
+    genreUiState : Resource<List<Genre>>,
+    navigateToSearchResults : (input: String) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -96,7 +98,7 @@ fun SearchScreen(
         HorizontalDivider()
 
         OutlinedButton(
-            onClick = { /*TODO*/ }
+            onClick = {  }
         ) {
             Text(text = "Search")
         }
@@ -201,10 +203,4 @@ fun GenresForSearch(genres: List<Genre>) {
             }
         }
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun SearchScreenPreview() {
-    SearchScreen(paddingValues = PaddingValues())
 }

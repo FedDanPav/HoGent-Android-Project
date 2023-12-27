@@ -10,6 +10,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.androidproject.presentation.components.BottomBar
 import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
+import com.androidproject.presentation.navigation.Destinations.SEARCH_RESULTS_ROUTE
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 import com.androidproject.presentation.screens.home.HomeScreen
 import com.androidproject.presentation.screens.search.SearchScreen
@@ -17,6 +18,7 @@ import com.androidproject.presentation.screens.search.SearchScreen
 object Destinations {
     const val HOME_ROUTE = "home"
     const val SEARCH_ROUTE = "search"
+    const val SEARCH_RESULTS_ROUTE = "searchresults"
 }
 
 @Composable
@@ -41,7 +43,9 @@ fun AppNavigation(
                 }
             }
             composable(SEARCH_ROUTE) {
-                SearchScreen(paddingValues)
+                SearchScreen(paddingValues) {
+                    navController.navigate(SEARCH_RESULTS_ROUTE)
+                }
             }
         }
     }
