@@ -108,7 +108,7 @@ fun ResultOverview(
         contentPadding = PaddingValues(bottom = 88.dp, start = 12.dp, end = 12.dp)
     ) {
         items(movies) {
-            MovieCard(movie = it)
+            MovieCard(movie = it, genres = genres)
         }
 
         item {
@@ -130,7 +130,7 @@ fun ResultOverview(
 }
 
 @Composable
-fun MovieCard(movie: Movie) {
+fun MovieCard(movie: Movie, genres: List<Genre>) {
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(0.47F)
     ) {
@@ -145,5 +145,12 @@ fun MovieCard(movie: Movie) {
 
         Text(text = "Votes/average")
         Text(text = "${movie.voteCount}/${movie.voteAverage}")
+
+        VerticalDivider()
+
+        val genresInMovie =  genres.filter {
+            movie.genreIds.contains(it.id)
+        }.map { it.name }.joinToString()
+        Text(text = "Genres: $genresInMovie")
     }
 }
