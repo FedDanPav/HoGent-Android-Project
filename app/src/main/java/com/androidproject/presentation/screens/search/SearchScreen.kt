@@ -142,7 +142,7 @@ fun SearchOptions(
     HorizontalDivider()
 
     OutlinedButton(
-        onClick = { navigateToSearchResults("") }
+        onClick = { navigateToSearchResults("include_video=false") }
     ) {
         Text(text = "Search")
     }

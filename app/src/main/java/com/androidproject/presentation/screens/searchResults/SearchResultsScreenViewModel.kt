@@ -1,8 +1,10 @@
 package com.androidproject.presentation.screens.searchResults
 
+import androidx.lifecycle.SavedStateHandle
 import com.androidproject.data.remote.MovieRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
@@ -17,6 +19,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 class SearchResultsScreenViewModel (
+    savedStateHandle: SavedStateHandle,
     private val genreRepository: GenreRepository,
     private val movieRepository: MovieRepository
 ) : ViewModel()  {
@@ -31,16 +34,22 @@ class SearchResultsScreenViewModel (
     val genresUiState : StateFlow<Resource<List<Genre>>> = _genres.asStateFlow()
     val moviesUiState : StateFlow<Resource<List<Movie>>> = _movies.asStateFlow()
 
-    init {
-        load()
+    private val args : String = checkNotNull(savedStateHandle["args"])
+    private val argsMap = args.split(",").associate {
+        val (key, value) = it.split("=")
+        key to value
     }
 
-    private fun load() {
+    init {
+        load(argsMap)
+    }
+
+    private fun load(args : Map<String, String>) {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
             _genres.value = genresResource
 
-            val movieResource = movieRepository.getMovies()
+            val movieResource = movieRepository.getMovies(args)
             _movies.value = movieResource
         }
     }
@@ -57,7 +66,7 @@ class SearchResultsScreenViewModel (
                 val movieRepository = application.container.apiMovieRepository
 
                 SearchResultsScreenViewModel(
-                    genreRepository, movieRepository
+                    this.createSavedStateHandle(), genreRepository, movieRepository
                 )
             }
         }

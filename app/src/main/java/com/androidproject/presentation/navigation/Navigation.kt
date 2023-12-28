@@ -19,7 +19,7 @@ import com.androidproject.presentation.screens.searchResults.SearchResultsScreen
 object Destinations {
     const val HOME_ROUTE = "home"
     const val SEARCH_ROUTE = "search"
-    const val SEARCH_RESULTS_ROUTE = "searchresults"
+    const val SEARCH_RESULTS_ROUTE = "searchresults/{args}"
 }
 
 @Composable
@@ -44,8 +44,8 @@ fun AppNavigation(
                 }
             }
             composable(SEARCH_ROUTE) {
-                SearchScreen(paddingValues) {
-                    navController.navigate(SEARCH_RESULTS_ROUTE)
+                SearchScreen(paddingValues) { input ->
+                    navController.navigate("searchresults/$input")
                 }
             }
             composable(SEARCH_RESULTS_ROUTE) {
