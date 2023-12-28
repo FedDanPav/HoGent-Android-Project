@@ -35,7 +35,7 @@ class SearchResultsScreenViewModel (
     val moviesUiState : StateFlow<Resource<List<Movie>>> = _movies.asStateFlow()
 
     private val args : String = checkNotNull(savedStateHandle["args"])
-    private val argsMap = args.split(",").associate {
+    private val argsMap = args.split("&").associate {
         val (key, value) = it.split("=")
         key to value
     }

@@ -9,7 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,6 +24,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -40,6 +41,8 @@ import com.androidproject.model.Genre
 import com.androidproject.presentation.screens.misc.ErrorScreen
 import com.androidproject.presentation.screens.misc.LoadingScreen
 import com.androidproject.util.Resource
+import java.lang.IndexOutOfBoundsException
+import kotlin.Error
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -97,6 +100,8 @@ fun SearchScreen(
     }
 }
 
+val searchOptions = mutableStateListOf<Pair<String, String>>()
+
 @Composable
 fun SearchOptions(
     genres: List<Genre>,
@@ -107,7 +112,9 @@ fun SearchOptions(
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(movieSearchOptionsStrings) { option ->
+        searchOptions.add(Pair(first = "include_video", second = "false"))
+
+        itemsIndexed(movieSearchOptionsStrings) { index, option ->
             Column {
                 Card(
                     modifier = Modifier
@@ -118,9 +125,19 @@ fun SearchOptions(
                         style = MaterialTheme.typography.bodyLarge
                     )
                 }
+
+                var fieldValue by remember { mutableStateOf("") }
                 OutlinedTextField(
-                    value = "",
-                    onValueChange = {}
+                    value = fieldValue,
+                    onValueChange = {
+                        fieldValue = it.toString()
+                        try {
+                            searchOptions[index + 1] =
+                                searchOptions[index + 1].copy(first = option, second = fieldValue)
+                        } catch (e : IndexOutOfBoundsException) {
+                            searchOptions.add(Pair(first = option, second = fieldValue))
+                        }
+                                    }
                 )
             }
         }
@@ -133,8 +150,23 @@ fun SearchOptions(
         columns = GridCells.FixedSize(100.dp)
     ) {
         items(movieSearchOptionsBools) { option ->
-            OutlinedButton(onClick = { /*TODO*/ }) {
-                Text(text = option)
+            run {
+                var buttonClicked = false
+                OutlinedButton(
+                    enabled = buttonClicked,
+                    onClick = {
+                        buttonClicked = !buttonClicked
+                        try {
+                            searchOptions[movieSearchOptionsStrings.size + 3] =
+                                searchOptions[movieSearchOptionsStrings.size + 3]
+                                    .copy(first = option, second = buttonClicked.toString())
+                        } catch (e : IndexOutOfBoundsException) {
+                            searchOptions.add(Pair(first = option, second = buttonClicked.toString()))
+                        }
+                    }
+                ) {
+                    Text(text = option)
+                }
             }
         }
     }
@@ -142,7 +174,13 @@ fun SearchOptions(
     HorizontalDivider()
 
     OutlinedButton(
-        onClick = { navigateToSearchResults("include_video=false") }
+        onClick = {
+            navigateToSearchResults(
+                searchOptions.map{
+                    "${it.first}=${it.second}"
+                }.joinToString("&")
+            )
+        }
     ) {
         Text(text = "Search")
     }
@@ -174,30 +212,33 @@ fun GenresForSearch(genres: List<Genre>) {
             }
         ) {
             TextField(
-                modifier = Modifier
-                    .menuAnchor(), // menuAnchor modifier must be passed to the text field for correctness
+                modifier = Modifier.menuAnchor(),
+                readOnly = true,
                 value = textFieldValue,
-                onValueChange = { newValue ->
-                    textFieldValue = newValue
-                },
+                onValueChange = { textFieldValue = it },
                 label = { Text("Genres") },
                 trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = menuExpanded) },
                 colors = ExposedDropdownMenuDefaults.textFieldColors(),
             )
 
-            // filter options based on text field value
-            val filteringOptions = genres.filter { it.name.contains(textFieldValue, ignoreCase = true) }
-            if (filteringOptions.isNotEmpty()) {
+            if (genres.isNotEmpty()) {
                 ExposedDropdownMenu(
                     expanded = menuExpanded,
                     onDismissRequest = { menuExpanded = false },
                 ) {
-                    filteringOptions.forEach { selectedGenre ->
+                    genres.forEach { selectedGenre ->
                         DropdownMenuItem(
                             text = { Text(selectedGenre.name) },
                             onClick = {
                                 textFieldValue = selectedGenre.name
                                 menuExpanded = false
+                                try {
+                                    searchOptions[movieSearchOptionsStrings.size + 2] =
+                                        searchOptions[movieSearchOptionsStrings.size + 2]
+                                            .copy(first = "with_genres", second = selectedGenre.id.toString())
+                                } catch (e : IndexOutOfBoundsException) {
+                                    searchOptions.add(Pair(first = "with_genres", second = selectedGenre.id.toString()))
+                                }
                             },
                             contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
                         )
