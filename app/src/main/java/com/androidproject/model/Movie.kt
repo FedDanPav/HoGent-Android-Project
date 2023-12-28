@@ -5,5 +5,6 @@ data class Movie(
     val overview : String,
     val originalLanguage : String,
     val voteAverage : Float,
-    val voteCount : Int
+    val voteCount : Int,
+    val genreIds : List<Int>
 )

@@ -12,7 +12,8 @@ data class MovieDto(
     @JsonProperty("overview") val overview : String,
     @JsonProperty("original_language") val originalLanguage : String,
     @JsonProperty("vote_average") val voteAverage : Float,
-    @JsonProperty("vote_count") val voteCount : Int
+    @JsonProperty("vote_count") val voteCount : Int,
+    @JsonProperty("genre_ids") val genreIds : List<Int>
 )
 
 fun MovieDto.toDomainObject(): Movie {
@@ -21,6 +22,7 @@ fun MovieDto.toDomainObject(): Movie {
         overview = this.overview,
         originalLanguage = this.originalLanguage,
         voteAverage = this.voteAverage,
-        voteCount = this.voteCount
+        voteCount = this.voteCount,
+        genreIds = this.genreIds
     )
 }
