@@ -22,22 +22,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        buildTypes {
-            getByName("release") {
-                buildConfigField("boolean", "ENABLE_LOGGING", "false")
-                manifestPlaceholders["networkSecurityConfig"] =
-                    "@xml/network_security_config_release"
-                isMinifyEnabled = true
-                proguardFiles(
-                    getDefaultProguardFile("proguard-android-optimize.txt"),
-                    "proguard-rules.pro"
-                )
-            }
-        }
-    }
-
-
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

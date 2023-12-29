@@ -181,7 +181,7 @@ fun SearchOptions(
             )
         }
     ) {
-        Text(text = "Search")
+        Text(text = stringResource(R.string.search_button))
     }
 }
 
