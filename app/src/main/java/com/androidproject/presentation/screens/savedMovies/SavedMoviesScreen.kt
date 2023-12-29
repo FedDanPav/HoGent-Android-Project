@@ -19,9 +19,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
-import com.androidproject.presentation.screens.misc.ErrorScreen
-import com.androidproject.presentation.screens.misc.LoadingScreen
-import com.androidproject.presentation.screens.misc.MovieCard
+import com.androidproject.presentation.screens.shared.ErrorScreen
+import com.androidproject.presentation.screens.shared.LoadingScreen
+import com.androidproject.presentation.screens.shared.MovieCard
 import com.androidproject.util.Resource
 
 @Composable

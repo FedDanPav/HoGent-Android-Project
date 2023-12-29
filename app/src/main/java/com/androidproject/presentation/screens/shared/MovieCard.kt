@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens.misc
+package com.androidproject.presentation.screens.shared
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ElevatedCard
