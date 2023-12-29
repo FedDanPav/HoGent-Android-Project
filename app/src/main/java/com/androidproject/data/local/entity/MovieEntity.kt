@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.androidproject.model.Movie
 
-@Entity(tableName = "saved_movie")
+@Entity(tableName = "movies")
 data class MovieEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val title : String,
