@@ -16,7 +16,12 @@ import com.androidproject.model.Genre
 import com.androidproject.model.Movie
 
 @Composable
-fun MovieCard(movie: Movie, genres: List<Genre>, saved: Boolean = false) {
+fun MovieCard(
+    movie: Movie,
+    genres: List<Genre>,
+    saved: Boolean = false,
+    buttonMethod: (movie: Movie) -> Unit
+) {
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(0.47F)
     ) {
@@ -42,7 +47,7 @@ fun MovieCard(movie: Movie, genres: List<Genre>, saved: Boolean = false) {
 
             if (saved) {
                 OutlinedButton(
-                    onClick = { /*TODO*/ }
+                    onClick = { buttonMethod(movie) }
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.heart_minus_24px),
@@ -51,7 +56,7 @@ fun MovieCard(movie: Movie, genres: List<Genre>, saved: Boolean = false) {
                 }
             } else {
                 OutlinedButton(
-                    onClick = { /*TODO*/ }
+                    onClick = { buttonMethod(movie) }
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.heart_plus_24px),

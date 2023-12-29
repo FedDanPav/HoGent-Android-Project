@@ -33,6 +33,11 @@ class SearchResultsScreenViewModel (
 
     val genresUiState : StateFlow<Resource<List<Genre>>> = _genres.asStateFlow()
     val moviesUiState : StateFlow<Resource<List<Movie>>> = _movies.asStateFlow()
+    fun saveMovie(input: Movie) {
+        viewModelScope.launch {
+            movieRepository.saveMovie(input)
+        }
+    }
 
     private val args : String = checkNotNull(savedStateHandle["args"])
     private val argsMap = args.split("&").associate {

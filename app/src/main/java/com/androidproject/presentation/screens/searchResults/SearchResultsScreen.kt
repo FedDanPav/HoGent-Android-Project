@@ -34,11 +34,15 @@ fun SearchResultsScreen(
 ) {
     val genresState by viewModel.genresUiState.collectAsState()
     val movieState by viewModel.moviesUiState.collectAsState()
+    fun saveMovie(movie: Movie) {
+        viewModel.saveMovie(movie)
+    }
 
     SearchResultsScreen(
         paddingValues = paddingValues,
         genreUiState = genresState,
-        movieUiState = movieState
+        movieUiState = movieState,
+        saveMovie = ::saveMovie
     )
 }
 
@@ -46,7 +50,8 @@ fun SearchResultsScreen(
 fun SearchResultsScreen(
     paddingValues : PaddingValues,
     genreUiState : Resource<List<Genre>>,
-    movieUiState : Resource<List<Movie>>
+    movieUiState : Resource<List<Movie>>,
+    saveMovie: (movie: Movie) -> Unit
 ) {
     Column (
         modifier = Modifier
@@ -79,7 +84,7 @@ fun SearchResultsScreen(
 
                         is Resource.Success -> {
                             movieUiState.data?.let {
-                                ResultOverview(genres = genreList, movies = it)
+                                ResultOverview(genres = genreList, movies = it, saveMovie)
                             }
                         }
                     }
@@ -92,7 +97,8 @@ fun SearchResultsScreen(
 @Composable
 fun ResultOverview(
     genres : List<Genre>,
-    movies : List<Movie>
+    movies : List<Movie>,
+    saveMovie: (movie: Movie) -> Unit
 ) {
     if (movies.isEmpty()) {
         Text(text = "No internet connection")
@@ -104,7 +110,7 @@ fun ResultOverview(
             contentPadding = PaddingValues(bottom = 88.dp, start = 12.dp, end = 12.dp)
         ) {
             items(movies) {
-                MovieCard(movie = it, genres = genres)
+                MovieCard(movie = it, genres = genres, saved = false, buttonMethod = saveMovie)
             }
 
             item {

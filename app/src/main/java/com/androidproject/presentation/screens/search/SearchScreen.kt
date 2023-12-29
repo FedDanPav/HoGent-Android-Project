@@ -73,7 +73,7 @@ fun SearchScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Search",
+            text = stringResource(R.string.search_button),
             style = MaterialTheme.typography.displayLarge,
             fontWeight = FontWeight.Bold
         )
