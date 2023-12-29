@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -109,22 +108,6 @@ fun ResultOverview(
         ) {
             items(movies) {
                 MovieCard(movie = it, genres = genres)
-            }
-
-            item {
-                OutlinedButton(
-                    onClick = {  }
-                ) {
-                    Text(text = "Next page")
-                }
-            }
-
-            item {
-                OutlinedButton(
-                    onClick = {  }
-                ) {
-                    Text(text = "Previous page")
-                }
             }
         }
     }
