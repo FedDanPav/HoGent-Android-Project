@@ -104,7 +104,7 @@ fun ResultOverview(
             contentPadding = PaddingValues(bottom = 88.dp, start = 12.dp, end = 12.dp)
         ) {
             items(movies) {
-                MovieCard(movie = it, genres = genres)
+                MovieCard(movie = it, genres = genres, true)
             }
         }
     }

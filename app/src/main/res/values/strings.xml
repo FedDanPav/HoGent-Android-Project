@@ -6,4 +6,9 @@
     <string name="home_button">Home</string>
     <string name="search_button">Search</string>
     <string name="saved_button">Saved</string>
+    <string name="save_button">Save</string>
+    <string name="unsave_button">Remove</string>
+    <string name="description">Description:</string>
+    <string name="amtvotesAndVoted">Votes/average:</string>
+    <string name="genres">Genres:</string>
 </resources>
