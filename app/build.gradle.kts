@@ -80,7 +80,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.7")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
     
-    //kotlinx serialization
+    // Kotlinx serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // Test implementations
@@ -99,6 +99,15 @@ dependencies {
 
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.6")
+
+    // Room
+    implementation("androidx.room:room-runtime:2.6.1")
+    annotationProcessor("androidx.room:room-compiler:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+    testImplementation("androidx.room:room-testing:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0-beta01")
 }
 
 kapt {

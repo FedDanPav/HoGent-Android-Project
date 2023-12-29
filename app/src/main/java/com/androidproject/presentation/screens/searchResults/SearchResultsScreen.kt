@@ -3,17 +3,14 @@ package com.androidproject.presentation.screens.searchResults
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
@@ -23,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import coil.compose.AsyncImage
 import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
@@ -149,7 +145,7 @@ fun MovieCard(movie: Movie, genres: List<Genre>) {
         VerticalDivider()
 
         val genresInMovie =  genres.filter {
-            movie.genreIds.contains(it.id)
+            movie.genreIds!!.contains(it.id)
         }.map { it.name }.joinToString()
         Text(text = "Genres: $genresInMovie")
     }
