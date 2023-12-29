@@ -7,7 +7,7 @@ import com.androidproject.model.Movie
 
 @Entity(tableName = "movies")
 data class MovieEntity(
-    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "movieId") val id: Int,
+    @PrimaryKey @ColumnInfo(name = "movieId") val id: Int,
     val title : String,
     val overview : String,
     val originalLanguage : String,
@@ -17,6 +17,7 @@ data class MovieEntity(
 
 fun MovieEntity.toMovie(): Movie {
     return Movie(
+        id = this.id,
         title = this.title,
         overview = this.overview,
         originalLanguage = this.originalLanguage,

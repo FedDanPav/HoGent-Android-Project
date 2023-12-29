@@ -44,6 +44,6 @@ class DefaultAppModule(context: Context) : AppModule {
         ApiGenreRepository(theMovieDBApi, genreDao)
     }
     override val apiMovieRepository: MovieRepository by lazy {
-        ApiMovieRepository(theMovieDBApi, movieDao)
+        ApiMovieRepository(theMovieDBApi, movieDao, movieToGenreDao)
     }
 }

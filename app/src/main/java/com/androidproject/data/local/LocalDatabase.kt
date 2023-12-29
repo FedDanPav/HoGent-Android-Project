@@ -17,7 +17,7 @@ import com.androidproject.data.local.entity.MovieToGenreEntity
         GenreEntity::class,
         MovieToGenreEntity::class
                ],
-    version = 2,
+    version = 1,
     exportSchema = false
 )
 abstract class LocalDatabase : RoomDatabase() {

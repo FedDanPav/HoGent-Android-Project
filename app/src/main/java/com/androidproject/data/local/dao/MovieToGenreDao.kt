@@ -8,8 +8,8 @@ import com.androidproject.data.local.entity.MovieToGenreEntity
 @Dao
 interface MovieToGenreDao {
     @Upsert
-    suspend fun upsertMoviesToDiseases(mte : List<MovieToGenreEntity>)
+    suspend fun upsertMoviesToGenres(mte : List<MovieToGenreEntity>)
 
     @Query("SELECT * FROM movies_to_genres WHERE tbl_movieId = :movieId")
-    suspend fun getGenresByMovieId(movieId : Int) : MovieToGenreEntity
+    suspend fun getGenresByMovieId(movieId : Int) : List<MovieToGenreEntity>
 }

@@ -8,6 +8,7 @@ import kotlinx.serialization.Serializable
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Serializable
 data class MovieDto(
+    @JsonProperty("id") val id : Int,
     @JsonProperty("title") val title : String,
     @JsonProperty("overview") val overview : String,
     @JsonProperty("original_language") val originalLanguage : String,
@@ -18,6 +19,7 @@ data class MovieDto(
 
 fun MovieDto.toDomainObject(): Movie {
     return Movie(
+        id = this.id,
         title = this.title,
         overview = this.overview,
         originalLanguage = this.originalLanguage,
