@@ -98,29 +98,33 @@ fun ResultOverview(
     genres : List<Genre>,
     movies : List<Movie>
 ) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(1),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
-        contentPadding = PaddingValues(bottom = 88.dp, start = 12.dp, end = 12.dp)
-    ) {
-        items(movies) {
-            MovieCard(movie = it, genres = genres)
-        }
-
-        item {
-            OutlinedButton(
-                onClick = {  }
-            ) {
-                Text(text = "Next page")
+    if (movies.isEmpty()) {
+        Text(text = "No internet connection")
+    } else {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(1),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(bottom = 88.dp, start = 12.dp, end = 12.dp)
+        ) {
+            items(movies) {
+                MovieCard(movie = it, genres = genres)
             }
-        }
 
-        item {
-            OutlinedButton(
-                onClick = {  }
-            ) {
-                Text(text = "Previous page")
+            item {
+                OutlinedButton(
+                    onClick = {  }
+                ) {
+                    Text(text = "Next page")
+                }
+            }
+
+            item {
+                OutlinedButton(
+                    onClick = {  }
+                ) {
+                    Text(text = "Previous page")
+                }
             }
         }
     }
