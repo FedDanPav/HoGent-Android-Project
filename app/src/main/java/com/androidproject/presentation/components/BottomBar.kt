@@ -70,7 +70,7 @@ fun BottomBar(navHostController: NavHostController) {
     )
 
     var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(getDefaultSelectedItemIndex(items, "Nieuws"))
+        mutableIntStateOf(getDefaultSelectedItemIndex(items, "Home"))
     }
 
     NavigationBar {
