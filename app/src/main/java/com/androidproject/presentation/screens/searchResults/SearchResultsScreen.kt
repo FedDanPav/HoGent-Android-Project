@@ -26,6 +26,7 @@ import com.androidproject.model.Movie
 import com.androidproject.presentation.screens.misc.ErrorScreen
 import com.androidproject.presentation.screens.misc.LoadingScreen
 import com.androidproject.util.Resource
+import java.lang.NullPointerException
 
 @Composable
 fun SearchResultsScreen(
@@ -130,23 +131,32 @@ fun MovieCard(movie: Movie, genres: List<Genre>) {
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(0.47F)
     ) {
-        Text(text = movie.title)
+        var genresInMovie = ""
 
-        VerticalDivider()
+        try {
+            genresInMovie =  genres.filter {
+                movie.genreIds!!.contains(it.id)
+            }.map { it.name }.joinToString()
+        } catch (e: NullPointerException) {
+            Text(text = "No internet connection")
+        }
 
-        Text(text = "Description")
-        Text(text = movie.overview)
+        if (genresInMovie.isNotBlank()) {
+            Text(text = movie.title)
 
-        VerticalDivider()
+            VerticalDivider()
 
-        Text(text = "Votes/average")
-        Text(text = "${movie.voteCount}/${movie.voteAverage}")
+            Text(text = "Description")
+            Text(text = movie.overview)
 
-        VerticalDivider()
+            VerticalDivider()
 
-        val genresInMovie =  genres.filter {
-            movie.genreIds!!.contains(it.id)
-        }.map { it.name }.joinToString()
-        Text(text = "Genres: $genresInMovie")
+            Text(text = "Votes/average")
+            Text(text = "${movie.voteCount}/${movie.voteAverage}")
+
+            VerticalDivider()
+
+            Text(text = "Genres: $genresInMovie")
+        }
     }
 }
