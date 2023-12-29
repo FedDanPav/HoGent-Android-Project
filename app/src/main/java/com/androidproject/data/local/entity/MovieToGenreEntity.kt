@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(
     tableName = "movies_to_genres",
-    foreignKeys = arrayOf(
+    foreignKeys = [
         ForeignKey(
             entity = MovieEntity::class,
             parentColumns = arrayOf("movieId"),
@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
             parentColumns = arrayOf("genreId"),
             childColumns = arrayOf("tbl_genreId")
         )
-    )
+    ]
 )
 data class MovieToGenreEntity(
     @PrimaryKey
