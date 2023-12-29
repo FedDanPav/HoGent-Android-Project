@@ -12,6 +12,7 @@ import com.androidproject.util.Resource
 interface MovieRepository {
     suspend fun getMovies(args: Map<String, String>): Resource<List<Movie>>
     suspend fun saveMovie(movie: Movie)
+    suspend fun removeMovie(movie: Movie)
     suspend fun getSavedMovies(): Resource<List<Movie>>
 }
 
@@ -31,8 +32,13 @@ class ApiMovieRepository (
     }
 
     override suspend fun saveMovie(movie: Movie) {
-        movieDao.upsertMovies(movie.toMovieEntity())
+        movieDao.upsertMovie(movie.toMovieEntity())
         movieToGenreDao.upsertMoviesToGenres(movie.toMovieToGenreEntity())
+    }
+
+    override suspend fun removeMovie(movie: Movie) {
+        movieToGenreDao.deleteMoviesToGenres(movieToGenreDao.getGenresByMovieId(movie.id))
+        movieDao.deleteMovie(movieDao.getMovieById(movie.id).first())
     }
 
     override suspend fun getSavedMovies(): Resource<List<Movie>> {
