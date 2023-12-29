@@ -2,6 +2,7 @@ package com.androidproject.presentation.screens.search
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -9,8 +10,10 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
+import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -146,26 +149,27 @@ fun SearchOptions(
         }
     }
 
-    LazyVerticalGrid(
-        columns = GridCells.FixedSize(100.dp)
-    ) {
+    LazyColumn {
         items(movieSearchOptionsBools) { option ->
             run {
-                var buttonClicked = false
-                OutlinedButton(
-                    enabled = buttonClicked,
-                    onClick = {
-                        buttonClicked = !buttonClicked
-                        try {
-                            searchOptions[movieSearchOptionsStrings.size + 3] =
-                                searchOptions[movieSearchOptionsStrings.size + 3]
-                                    .copy(first = option, second = buttonClicked.toString())
-                        } catch (e : IndexOutOfBoundsException) {
-                            searchOptions.add(Pair(first = option, second = buttonClicked.toString()))
-                        }
-                    }
+                var boxChecked by remember { mutableStateOf(false) }
+                Row (
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(text = option)
+                    Checkbox(
+                        checked = boxChecked,
+                        onCheckedChange = {
+                            boxChecked = !boxChecked
+                            try {
+                                searchOptions[movieSearchOptionsStrings.size + 3] =
+                                    searchOptions[movieSearchOptionsStrings.size + 3]
+                                        .copy(first = option, second = boxChecked.toString())
+                            } catch (e : IndexOutOfBoundsException) {
+                                searchOptions.add(Pair(first = option, second = boxChecked.toString()))
+                            }
+                        }
+                    )
                 }
             }
         }
