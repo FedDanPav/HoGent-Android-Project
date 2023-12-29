@@ -21,7 +21,7 @@ class ApiMovieRepository (
             val movies = tmdbApi.getMovies(args).toDomainList()
 
             try {
-                // if that succeeds, store the diseases in the local database
+                // if that succeeds, store the movies in the local database
                 movieDao.upsertMovies(movies.map { it.toMovieEntity() })
             } catch (e: Exception) {
                 Log.e("DB-ERROR", "Error while storing movies in local database: ${e.message}")

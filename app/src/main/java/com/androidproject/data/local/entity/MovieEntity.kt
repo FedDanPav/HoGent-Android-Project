@@ -1,18 +1,18 @@
 package com.androidproject.data.local.entity
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.androidproject.model.Movie
 
 @Entity(tableName = "movies")
 data class MovieEntity(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "movieId") val id: Int,
     val title : String,
     val overview : String,
     val originalLanguage : String,
     val voteAverage : Float,
-    val voteCount : Int,
-    val genreIds : List<Int>
+    val voteCount : Int
 )
 
 fun MovieEntity.toMovie(): Movie {
@@ -22,6 +22,6 @@ fun MovieEntity.toMovie(): Movie {
         originalLanguage = this.originalLanguage,
         voteAverage = this.voteAverage,
         voteCount = this.voteCount,
-        genreIds = this.genreIds
+        genreIds = null
     )
 }

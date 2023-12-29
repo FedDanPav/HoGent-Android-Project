@@ -4,16 +4,26 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.androidproject.data.local.dao.GenreDao
 import com.androidproject.data.local.dao.MovieDao
+import com.androidproject.data.local.dao.MovieToGenreDao
+import com.androidproject.data.local.entity.GenreEntity
 import com.androidproject.data.local.entity.MovieEntity
+import com.androidproject.data.local.entity.MovieToGenreEntity
 
 @Database(
-    entities = [MovieEntity::class],
+    entities = [
+        MovieEntity::class,
+        GenreEntity::class,
+        MovieToGenreEntity::class
+               ],
     version = 2,
     exportSchema = false
 )
 abstract class LocalDatabase : RoomDatabase() {
     abstract fun movieDao(): MovieDao
+    abstract fun genreDao(): GenreDao
+    abstract fun movieToGenreDao(): MovieToGenreDao
 
     companion object {
         @Volatile

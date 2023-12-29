@@ -8,7 +8,7 @@ data class Movie(
     val originalLanguage : String,
     val voteAverage : Float,
     val voteCount : Int,
-    val genreIds : List<Int>
+    val genreIds : List<Int>?
 )
 
 fun Movie.toMovieEntity(): MovieEntity {
@@ -18,7 +18,6 @@ fun Movie.toMovieEntity(): MovieEntity {
         overview = this.overview,
         originalLanguage = this.originalLanguage,
         voteAverage = this.voteAverage,
-        voteCount = this.voteCount,
-        genreIds = this.genreIds
+        voteCount = this.voteCount
     )
 }

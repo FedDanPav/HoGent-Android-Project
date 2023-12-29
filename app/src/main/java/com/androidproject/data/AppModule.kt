@@ -38,11 +38,13 @@ class DefaultAppModule(context: Context) : AppModule {
     private val database by lazy { LocalDatabase.getDatabase(context) }
 
     private val movieDao by lazy { database.movieDao() }
+    private val genreDao by lazy { database.genreDao() }
+    private val movieToGenreDao by lazy { database.movieToGenreDao() }
 
     private val theMovieDBApi: TheMovieDBApi = provideMovieApi()
 
     override val apiGenreRepository: GenreRepository by lazy {
-        ApiGenreRepository(theMovieDBApi)
+        ApiGenreRepository(theMovieDBApi, genreDao)
     }
     override val apiMovieRepository: MovieRepository by lazy {
         ApiMovieRepository(theMovieDBApi, movieDao)
