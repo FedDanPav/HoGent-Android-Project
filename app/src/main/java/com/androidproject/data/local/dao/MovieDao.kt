@@ -11,5 +11,5 @@ interface MovieDao {
     suspend fun upsertMovies(movies: List<MovieEntity>)
 
     @Query("SELECT * FROM movies")
-    suspend fun getDiseases(): List<MovieEntity>
+    suspend fun getMovies(): List<MovieEntity>
 }

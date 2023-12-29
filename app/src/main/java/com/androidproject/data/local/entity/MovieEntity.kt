@@ -15,7 +15,7 @@ data class MovieEntity(
     val genreIds : List<Int>
 )
 
-fun MovieEntity.toDisease(): Movie {
+fun MovieEntity.toMovie(): Movie {
     return Movie(
         title = this.title,
         overview = this.overview,

@@ -1,5 +1,7 @@
 package com.androidproject.model
 
+import com.androidproject.data.local.entity.MovieEntity
+
 data class Movie(
     val title : String,
     val overview : String,
@@ -8,3 +10,15 @@ data class Movie(
     val voteCount : Int,
     val genreIds : List<Int>
 )
+
+fun Movie.toMovieEntity(): MovieEntity {
+    return MovieEntity(
+        id = 0,
+        title = this.title,
+        overview = this.overview,
+        originalLanguage = this.originalLanguage,
+        voteAverage = this.voteAverage,
+        voteCount = this.voteCount,
+        genreIds = this.genreIds
+    )
+}
