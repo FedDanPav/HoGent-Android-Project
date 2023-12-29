@@ -4,15 +4,12 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
-import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,8 +22,8 @@ import com.androidproject.model.Genre
 import com.androidproject.model.Movie
 import com.androidproject.presentation.screens.misc.ErrorScreen
 import com.androidproject.presentation.screens.misc.LoadingScreen
+import com.androidproject.presentation.screens.misc.MovieCard
 import com.androidproject.util.Resource
-import java.lang.NullPointerException
 
 @Composable
 fun SearchResultsScreen(
@@ -125,41 +122,6 @@ fun ResultOverview(
                     Text(text = "Previous page")
                 }
             }
-        }
-    }
-}
-
-@Composable
-fun MovieCard(movie: Movie, genres: List<Genre>) {
-    ElevatedCard(
-        modifier = Modifier.fillMaxWidth(0.47F)
-    ) {
-        var genresInMovie = ""
-
-        try {
-            genresInMovie =  genres.filter {
-                movie.genreIds!!.contains(it.id)
-            }.map { it.name }.joinToString()
-        } catch (e: NullPointerException) {
-            Text(text = "No internet connection")
-        }
-
-        if (genresInMovie.isNotBlank()) {
-            Text(text = movie.title)
-
-            VerticalDivider()
-
-            Text(text = "Description")
-            Text(text = movie.overview)
-
-            VerticalDivider()
-
-            Text(text = "Votes/average")
-            Text(text = "${movie.voteCount}/${movie.voteAverage}")
-
-            VerticalDivider()
-
-            Text(text = "Genres: $genresInMovie")
         }
     }
 }
