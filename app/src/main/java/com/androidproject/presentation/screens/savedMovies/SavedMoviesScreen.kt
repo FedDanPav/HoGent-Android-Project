@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens.searchResults
+package com.androidproject.presentation.screens.savedMovies
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -29,16 +29,16 @@ import com.androidproject.util.Resource
 import java.lang.NullPointerException
 
 @Composable
-fun SearchResultsScreen(
-    paddingValues: PaddingValues,
-    viewModel: SearchResultsScreenViewModel = viewModel(
-        factory = SearchResultsScreenViewModel.Factory
+fun SavedMoviesScreen(
+    paddingValues : PaddingValues,
+    viewModel: SavedMoviesViewModel = viewModel(
+        factory = SavedMoviesViewModel.Factory
     )
 ) {
     val genresState by viewModel.genresUiState.collectAsState()
     val movieState by viewModel.moviesUiState.collectAsState()
 
-    SearchResultsScreen(
+    SavedMoviesScreen(
         paddingValues = paddingValues,
         genreUiState = genresState,
         movieUiState = movieState
@@ -46,12 +46,13 @@ fun SearchResultsScreen(
 }
 
 @Composable
-fun SearchResultsScreen(
+fun SavedMoviesScreen(
     paddingValues : PaddingValues,
     genreUiState : Resource<List<Genre>>,
     movieUiState : Resource<List<Movie>>
 ) {
     Column (
+
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()

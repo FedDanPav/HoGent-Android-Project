@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">AndroidProject</string>
-    <string name="loading">Loading...</string>
+    <string name="loading">Loading…</string>
     <string name="error">An error has accureed</string>
     <string name="unknownerror">An unknown error has accured</string>
+    <string name="home_button">Home</string>
+    <string name="search_button">Search</string>
+    <string name="saved_button">Saved</string>
 </resources>
