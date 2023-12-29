@@ -39,12 +39,12 @@ class ApiMovieRepository (
         return try {
             val savedMovies = movieDao.getMovies().map { it.toMovie() }
 
-            savedMovies.forEach{ movie ->
-                movie.genreIds =  movieToGenreDao.getGenresByMovieId(movie.id).map { it.genreId }
-            }
-
             if (savedMovies.isEmpty()) {
                 return Resource.Error("No movies saved")
+            }
+
+            savedMovies.forEach{ movie ->
+                movie.genreIds =  movieToGenreDao.getGenresByMovieId(movie.id).map { it.genreId }
             }
 
             Resource.Success(savedMovies)
