@@ -21,6 +21,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Before
+import org.junit.Test
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GenreRepositoryTest {
@@ -48,6 +49,7 @@ class GenreRepositoryTest {
         clearAllMocks()
     }
 
+    @Test
     fun `getGenres returns success with valid data from the API`() = runTest {
         coEvery { mockApi.getMovieGenres() } returns TestData.testGenreRequestDto
         coEvery { mockGenreDao.getGenres() } returns listOf(TestData.testGenreEntity)
@@ -61,6 +63,7 @@ class GenreRepositoryTest {
         coVerify { mockGenreDao.upsertGenres(any()) }
     }
 
+    @Test
     fun `getGenres returns data from the database when API fails to respond`() = runTest {
         coEvery { mockApi.getMovieGenres() } throws Exception("API Error")
         coEvery { mockGenreDao.getGenres() } returns listOf(TestData.testGenreEntity)
