@@ -28,9 +28,9 @@ fun MovieCard(
     ElevatedCard(
         modifier = Modifier.fillMaxWidth(0.47F)
     ) {
-        val genresInMovie =  genres.filter {
+        val genresInMovie = genres.filter {
             movie.genreIds!!.contains(it.id)
-        }.map { it.name }.joinToString()
+        }.joinToString { it.name }
 
         if (genresInMovie.isNotBlank()) {
             Column {

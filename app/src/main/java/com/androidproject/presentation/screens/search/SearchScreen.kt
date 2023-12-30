@@ -42,7 +42,6 @@ import com.androidproject.presentation.screens.shared.LoadingScreen
 import com.androidproject.util.Resource
 import java.lang.IndexOutOfBoundsException
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
     paddingValues: PaddingValues,
@@ -128,7 +127,7 @@ fun SearchOptions(
                 OutlinedTextField(
                     value = fieldValue,
                     onValueChange = {
-                        fieldValue = it.toString()
+                        fieldValue = it
                         try {
                             searchOptions[index + 1] =
                                 searchOptions[index + 1].copy(first = option, second = fieldValue)
@@ -175,9 +174,9 @@ fun SearchOptions(
     OutlinedButton(
         onClick = {
             navigateToSearchResults(
-                searchOptions.map{
+                searchOptions.joinToString("&") {
                     "${it.first}=${it.second}"
-                }.joinToString("&")
+                }
             )
         }
     ) {

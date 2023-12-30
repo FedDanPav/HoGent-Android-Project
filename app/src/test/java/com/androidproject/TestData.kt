@@ -12,7 +12,7 @@ import com.androidproject.model.toMovieEntity
 import com.androidproject.model.toMovieToGenreEntity
 
 object TestData {
-    val testGenreDto = GenreDto(
+    private val testGenreDto = GenreDto(
         100,
         "TestGenre"
     )
@@ -24,7 +24,7 @@ object TestData {
     val testGenre = testGenreDto.toDomainObject()
     val testGenreEntity = testGenre.toGenreEntity()
 
-    val testMovieDto = MovieDto(
+    private val testMovieDto = MovieDto(
         1,
         "Test Movie",
         "This is a test movie",
@@ -56,7 +56,7 @@ object TestData {
     val testMovieEntity = testMovie.toMovieEntity()
     val testMovieToGenreEntities = testMovie.toMovieToGenreEntity()
 
-    val testMovieGetArgsString = "include_video=false"
+    const val testMovieGetArgsString = "include_video=false"
     val testMovieArgsMap = testMovieGetArgsString.split("&").associate {
         val (key, value) = it.split("=")
         key to value

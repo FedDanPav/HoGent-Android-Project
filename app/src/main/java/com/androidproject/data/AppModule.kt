@@ -17,7 +17,7 @@ interface AppModule {
 }
 
 class DefaultAppModule(context: Context) : AppModule {
-    fun provideMovieApi(): TheMovieDBApi {
+    private fun provideMovieApi(): TheMovieDBApi {
         val client = OkHttpClient()
             .newBuilder()
             .build()

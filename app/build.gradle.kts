@@ -2,8 +2,8 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.8.10"
-    kotlin("kapt")
     id("org.jetbrains.dokka") version "1.9.10"
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -99,11 +99,7 @@ dependencies {
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
     testImplementation("androidx.room:room-testing:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
-}
-
-kapt {
-    correctErrorTypes = true
 }

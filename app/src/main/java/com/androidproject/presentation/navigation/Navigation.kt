@@ -2,11 +2,9 @@ package com.androidproject.presentation.navigation
 
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.androidproject.presentation.components.BottomBar
 import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
@@ -29,9 +27,6 @@ object Destinations {
 fun AppNavigation(
     navController: NavHostController = rememberNavController()
 ) {
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route ?: HOME_ROUTE
-
     Scaffold(
         bottomBar = {
             BottomBar(navController)
