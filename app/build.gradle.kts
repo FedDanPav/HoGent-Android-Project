@@ -92,6 +92,11 @@ dependencies {
     implementation("androidx.room:room-ktx:2.6.1")
 
     androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0-beta01")
+
+    // Mockk
+    testImplementation("io.mockk:mockk-android:1.13.8")
+    testImplementation("io.mockk:mockk-agent:1.13.8")
+    testImplementation("androidx.test:runner:1.5.2")
 }
 
 kapt {
