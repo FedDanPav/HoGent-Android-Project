@@ -10,7 +10,8 @@ data class Movie(
     val originalLanguage : String,
     val voteAverage : Float,
     val voteCount : Int,
-    var genreIds : List<Int>?
+    var genreIds : List<Int>?,
+    var isSaved : Boolean = false
 )
 
 fun Movie.toMovieEntity(): MovieEntity {

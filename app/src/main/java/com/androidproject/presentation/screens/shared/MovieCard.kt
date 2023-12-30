@@ -7,6 +7,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -19,7 +23,6 @@ import com.androidproject.model.Movie
 fun MovieCard(
     movie: Movie,
     genres: List<Genre>,
-    saved: Boolean = false,
     buttonMethod: (movie: Movie) -> Unit
 ) {
     ElevatedCard(
@@ -45,19 +48,20 @@ fun MovieCard(
                 Text(text = "${stringResource(R.string.genres)} $genresInMovie")
             }
 
-            if (saved) {
-                OutlinedButton(
-                    onClick = { buttonMethod(movie) }
-                ) {
+            var isSaved by remember { mutableStateOf(movie.isSaved) }
+
+            OutlinedButton(
+                onClick = {
+                    buttonMethod(movie)
+                    isSaved = !isSaved
+                }
+            ) {
+                if (isSaved) {
                     Icon(
                         painter = painterResource(R.drawable.heart_minus_24px),
                         contentDescription = stringResource(R.string.unsave_button)
                     )
-                }
-            } else {
-                OutlinedButton(
-                    onClick = { buttonMethod(movie) }
-                ) {
+                } else {
                     Icon(
                         painter = painterResource(R.drawable.heart_plus_24px),
                         contentDescription = stringResource(R.string.save_button)

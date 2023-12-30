@@ -23,6 +23,7 @@ fun MovieEntity.toMovie(): Movie {
         originalLanguage = this.originalLanguage,
         voteAverage = this.voteAverage,
         voteCount = this.voteCount,
-        genreIds = null
+        genreIds = null,
+        isSaved = true
     )
 }
