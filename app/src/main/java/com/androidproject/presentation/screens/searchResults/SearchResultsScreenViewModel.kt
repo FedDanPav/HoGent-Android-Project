@@ -54,7 +54,7 @@ class SearchResultsScreenViewModel (
         load(argsMap)
     }
 
-    private fun load(args : Map<String, String>) {
+    fun load(args : Map<String, String>) {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
             _genres.value = genresResource
