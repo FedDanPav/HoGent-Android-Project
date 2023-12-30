@@ -4,8 +4,6 @@ import com.androidproject.data.remote.dto.genres.GenreRequestDto
 import com.androidproject.data.remote.dto.movies.MovieRequestDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
-import retrofit2.http.Path
-import retrofit2.http.Query
 import retrofit2.http.QueryMap
 
 interface TheMovieDBApi {
