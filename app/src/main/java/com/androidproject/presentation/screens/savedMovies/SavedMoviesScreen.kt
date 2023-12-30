@@ -33,15 +33,18 @@ fun SavedMoviesScreen(
 ) {
     val genresState by viewModel.genresUiState.collectAsState()
     val movieState by viewModel.moviesUiState.collectAsState()
-    fun saveMovie(movie: Movie) {
-        viewModel.deleteMovie(movie)
+    fun handleMovie(movie: Movie) {
+        if (movie.isSaved) {
+            viewModel.deleteMovie(movie)
+        } else {
+            viewModel.saveMovie(movie)
+        }
     }
-
     SavedMoviesScreen(
         paddingValues = paddingValues,
         genreUiState = genresState,
         movieUiState = movieState,
-        saveMovie = ::saveMovie
+        handleMovie = ::handleMovie
     )
 }
 
@@ -50,7 +53,7 @@ fun SavedMoviesScreen(
     paddingValues : PaddingValues,
     genreUiState : Resource<List<Genre>>,
     movieUiState : Resource<List<Movie>>,
-    saveMovie: (movie: Movie) -> Unit
+    handleMovie: (movie: Movie) -> Unit
 ) {
     Column (
 
@@ -84,7 +87,7 @@ fun SavedMoviesScreen(
 
                         is Resource.Success -> {
                             movieUiState.data?.let {
-                                ResultOverview(genres = genreList, movies = it, saveMovie)
+                                ResultOverview(genres = genreList, movies = it, handleMovie)
                             }
                         }
                     }
@@ -98,7 +101,7 @@ fun SavedMoviesScreen(
 fun ResultOverview(
     genres : List<Genre>,
     movies : List<Movie>,
-    saveMovie: (movie: Movie) -> Unit
+    handleMovie: (movie: Movie) -> Unit
 ) {
     if (movies.isEmpty()) {
         Text(text = "No internet connection")
@@ -110,7 +113,7 @@ fun ResultOverview(
             contentPadding = PaddingValues(bottom = 88.dp, start = 12.dp, end = 12.dp)
         ) {
             items(movies) {
-                MovieCard(movie = it, genres = genres, buttonMethod = saveMovie)
+                MovieCard(movie = it, genres = genres, buttonMethod = handleMovie)
             }
         }
     }

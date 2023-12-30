@@ -38,6 +38,11 @@ class SearchResultsScreenViewModel (
             movieRepository.saveMovie(input)
         }
     }
+    fun deleteMovie(input: Movie) {
+        viewModelScope.launch {
+            movieRepository.removeMovie(input)
+        }
+    }
 
     private val args : String = checkNotNull(savedStateHandle["args"])
     private val argsMap = args.split("&").associate {

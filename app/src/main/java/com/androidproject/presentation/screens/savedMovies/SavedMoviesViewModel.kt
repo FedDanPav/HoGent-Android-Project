@@ -30,6 +30,11 @@ class SavedMoviesViewModel (
 
     val genresUiState : StateFlow<Resource<List<Genre>>> = _genres.asStateFlow()
     val moviesUiState : StateFlow<Resource<List<Movie>>> = _movies.asStateFlow()
+    fun saveMovie(input: Movie) {
+        viewModelScope.launch {
+            movieRepository.saveMovie(input)
+        }
+    }
     fun deleteMovie(input: Movie) {
         viewModelScope.launch {
             movieRepository.removeMovie(input)

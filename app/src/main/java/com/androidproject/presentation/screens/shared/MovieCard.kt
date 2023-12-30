@@ -53,6 +53,7 @@ fun MovieCard(
             OutlinedButton(
                 onClick = {
                     buttonMethod(movie)
+                    movie.isSaved = !movie.isSaved
                     isSaved = !isSaved
                 }
             ) {
