@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens.misc
+package com.androidproject.presentation.screens.shared
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

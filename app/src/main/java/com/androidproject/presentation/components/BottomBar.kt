@@ -12,11 +12,13 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import com.androidproject.R
 import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
+import com.androidproject.presentation.navigation.Destinations.SAVED_MOVIES
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 
 data class BottomNavigationItem(
@@ -24,15 +26,17 @@ data class BottomNavigationItem(
     val selectedIcon: Int,
     val unselectedIcon: Int,
     val badgeCount: Int? = null,
+    val route: String,
     val onClick: () -> Unit,
 )
 @Composable
 fun BottomBar(navHostController: NavHostController) {
     val items = listOf(
         BottomNavigationItem(
-            title = "About",
+            title = stringResource(R.string.home_button),
             selectedIcon = R.drawable.baseline_description_24,
             unselectedIcon = R.drawable.baseline_description_24,
+            route = HOME_ROUTE
         ) {
             navHostController.navigate(HOME_ROUTE) {
                 popUpTo(navHostController.graph.findStartDestination().id)
@@ -41,9 +45,10 @@ fun BottomBar(navHostController: NavHostController) {
         },
 
         BottomNavigationItem(
-            title = "Search",
+            title = stringResource(R.string.search_button),
             selectedIcon = R.drawable.baseline_search_24,
             unselectedIcon = R.drawable.baseline_search_24,
+            route = SEARCH_ROUTE
         ) {
             navHostController.navigate(SEARCH_ROUTE) {
                 popUpTo(navHostController.graph.findStartDestination().id)
@@ -52,19 +57,20 @@ fun BottomBar(navHostController: NavHostController) {
         },
 
         BottomNavigationItem(
-            title = "Saved",
+            title = stringResource(R.string.saved_button),
             selectedIcon = R.drawable.baseline_favorite_24,
             unselectedIcon = R.drawable.baseline_favorite_24,
+            route = SAVED_MOVIES
         ) {
-///            navHostController.navigate(DISEASES_ROUTE) {
-///                popUpTo(navHostController.graph.findStartDestination().id)
-///                launchSingleTop = true
-///            }
+            navHostController.navigate(SAVED_MOVIES) {
+                popUpTo(navHostController.graph.findStartDestination().id)
+                launchSingleTop = true
+            }
         }
     )
 
     var selectedItemIndex by rememberSaveable {
-        mutableIntStateOf(getDefaultSelectedItemIndex(items, "Nieuws"))
+        mutableIntStateOf(getDefaultSelectedItemIndex(items, "Home"))
     }
 
     NavigationBar {

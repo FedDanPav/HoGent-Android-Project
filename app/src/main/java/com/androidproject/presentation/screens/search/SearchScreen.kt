@@ -7,9 +7,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Card
@@ -35,17 +32,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.androidproject.R
 import com.androidproject.data.movieSearchOptionsBools
 import com.androidproject.data.movieSearchOptionsStrings
 import com.androidproject.model.Genre
-import com.androidproject.presentation.screens.misc.ErrorScreen
-import com.androidproject.presentation.screens.misc.LoadingScreen
+import com.androidproject.presentation.screens.shared.ErrorScreen
+import com.androidproject.presentation.screens.shared.LoadingScreen
 import com.androidproject.util.Resource
 import java.lang.IndexOutOfBoundsException
-import kotlin.Error
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -78,7 +73,7 @@ fun SearchScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Search",
+            text = stringResource(R.string.search_button),
             style = MaterialTheme.typography.displayLarge,
             fontWeight = FontWeight.Bold
         )
@@ -186,7 +181,7 @@ fun SearchOptions(
             )
         }
     ) {
-        Text(text = "Search")
+        Text(text = stringResource(R.string.search_button))
     }
 }
 

@@ -10,9 +10,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.androidproject.presentation.components.BottomBar
 import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
+import com.androidproject.presentation.navigation.Destinations.SAVED_MOVIES
 import com.androidproject.presentation.navigation.Destinations.SEARCH_RESULTS_ROUTE
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 import com.androidproject.presentation.screens.home.HomeScreen
+import com.androidproject.presentation.screens.savedMovies.SavedMoviesScreen
 import com.androidproject.presentation.screens.search.SearchScreen
 import com.androidproject.presentation.screens.searchResults.SearchResultsScreen
 
@@ -20,6 +22,7 @@ object Destinations {
     const val HOME_ROUTE = "home"
     const val SEARCH_ROUTE = "search"
     const val SEARCH_RESULTS_ROUTE = "searchresults/{args}"
+    const val SAVED_MOVIES = "savedmovies"
 }
 
 @Composable
@@ -50,6 +53,9 @@ fun AppNavigation(
             }
             composable(SEARCH_RESULTS_ROUTE) {
                 SearchResultsScreen(paddingValues)
+            }
+            composable(SAVED_MOVIES) {
+                SavedMoviesScreen(paddingValues)
             }
         }
     }

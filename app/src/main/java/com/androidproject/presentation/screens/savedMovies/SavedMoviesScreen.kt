@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens.searchResults
+package com.androidproject.presentation.screens.savedMovies
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -26,10 +25,10 @@ import com.androidproject.presentation.screens.shared.MovieCard
 import com.androidproject.util.Resource
 
 @Composable
-fun SearchResultsScreen(
-    paddingValues: PaddingValues,
-    viewModel: SearchResultsScreenViewModel = viewModel(
-        factory = SearchResultsScreenViewModel.Factory
+fun SavedMoviesScreen(
+    paddingValues : PaddingValues,
+    viewModel: SavedMoviesViewModel = viewModel(
+        factory = SavedMoviesViewModel.Factory
     )
 ) {
     val genresState by viewModel.genresUiState.collectAsState()
@@ -41,8 +40,7 @@ fun SearchResultsScreen(
             viewModel.saveMovie(movie)
         }
     }
-
-    SearchResultsScreen(
+    SavedMoviesScreen(
         paddingValues = paddingValues,
         genreUiState = genresState,
         movieUiState = movieState,
@@ -51,13 +49,14 @@ fun SearchResultsScreen(
 }
 
 @Composable
-fun SearchResultsScreen(
+fun SavedMoviesScreen(
     paddingValues : PaddingValues,
     genreUiState : Resource<List<Genre>>,
     movieUiState : Resource<List<Movie>>,
     handleMovie: (movie: Movie) -> Unit
 ) {
     Column (
+
         modifier = Modifier
             .padding(paddingValues)
             .fillMaxSize()
@@ -115,22 +114,6 @@ fun ResultOverview(
         ) {
             items(movies) {
                 MovieCard(movie = it, genres = genres, buttonMethod = handleMovie)
-            }
-
-            item {
-                OutlinedButton(
-                    onClick = {  }
-                ) {
-                    Text(text = "Next page")
-                }
-            }
-
-            item {
-                OutlinedButton(
-                    onClick = {  }
-                ) {
-                    Text(text = "Previous page")
-                }
             }
         }
     }
