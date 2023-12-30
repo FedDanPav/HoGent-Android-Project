@@ -54,7 +54,6 @@ class SearchScreenViewModelTest {
         TestCase.assertTrue(initialState is Resource.Loading)
     }
 
-
     @Test
     fun `loadGenres() should call repository getGenres`() = runTest {
         viewModel.loadGenres()

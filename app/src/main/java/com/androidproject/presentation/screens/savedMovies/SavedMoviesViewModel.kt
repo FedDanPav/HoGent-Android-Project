@@ -46,7 +46,7 @@ class SavedMoviesViewModel (
         load()
     }
 
-    private fun load() {
+    fun load() {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
             _genres.value = genresResource
