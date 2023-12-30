@@ -34,8 +34,8 @@ fun BottomBar(navHostController: NavHostController) {
     val items = listOf(
         BottomNavigationItem(
             title = stringResource(R.string.home_button),
-            selectedIcon = R.drawable.baseline_description_24,
-            unselectedIcon = R.drawable.baseline_description_24,
+            selectedIcon = R.drawable.baseline_home_24,
+            unselectedIcon = R.drawable.baseline_home_24,
             route = HOME_ROUTE
         ) {
             navHostController.navigate(HOME_ROUTE) {
