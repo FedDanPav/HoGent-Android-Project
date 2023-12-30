@@ -23,7 +23,7 @@ class ApiGenreRepository (
                 // if that succeeds, store the genres in the local database
                 genreDao.upsertGenres(genres.map { it.toGenreEntity() })
             } catch (e: Exception) {
-                Log.e("DB-ERROR", "Error while storing diseases in local database: ${e.message}")
+                Log.e("DB-ERROR", "Error while storing genres in local database: ${e.message}")
             }
             Resource.Success(genres)
         } catch (e: Exception) {
