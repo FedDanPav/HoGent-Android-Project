@@ -27,7 +27,7 @@ class SearchScreenViewModel (
         loadGenres()
     }
 
-    private fun loadGenres() {
+    fun loadGenres() {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
             _genres.value = genresResource

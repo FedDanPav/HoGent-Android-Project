@@ -68,11 +68,23 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
 
     // Test implementations
+    implementation("androidx.navigation:navigation-testing:2.7.6")
+    implementation("androidx.compose.ui:ui-test-junit4:1.5.4")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation("androidx.test.ext:junit:1.1.5")
+    testImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
+    testImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-tooling")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
+    // Mockk
+    testImplementation("io.mockk:mockk-android:1.13.8")
+    testImplementation("io.mockk:mockk-agent:1.13.8")
+    testImplementation("androidx.test:runner:1.5.2")
+
+    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0-beta01")
 
     // Debug implements
     debugImplementation("androidx.compose.ui:ui-tooling")
@@ -90,8 +102,6 @@ dependencies {
     kapt("androidx.room:room-compiler:2.6.1")
     testImplementation("androidx.room:room-testing:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
-
-    androidTestImplementation("androidx.test.uiautomator:uiautomator:2.3.0-beta01")
 }
 
 kapt {
