@@ -12,4 +12,11 @@
     <string name="amtvotesAndVoted">Votes/average:</string>
     <string name="genres">Genres:</string>
     <string name="discover_button">Discover</string>
+    <string name="welcome_title">Welcome!</string>
+    <string name="welcome_text1">You\'ll be able to find movies to watch</string>
+    <string name="welcome_text2">Use the button/bar to start!</string>
+    <string name="welcome_madeby">Made by:</string>
+    <string name="welcome_madeby_name">Fedor Danilov</string>
+    <string name="welcome_for">For HoGent project</string>
+    <string name="welcome_poweredby">Powered by</string>
 </resources>

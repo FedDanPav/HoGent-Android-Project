@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Label
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -17,9 +18,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.androidproject.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,7 +41,7 @@ fun HomeScreen(
         Label(
             label = { }) {
                 Text(
-                    text = "Welcome!",
+                    text = stringResource(R.string.welcome_title),
                     style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -46,7 +49,7 @@ fun HomeScreen(
         Label(
             label = { }) {
             Text(
-                text = "You'll be able to find random movies to watch",
+                text = stringResource(R.string.welcome_text1),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -54,7 +57,7 @@ fun HomeScreen(
         Label(
             label = { }) {
             Text(
-                text = "Use the bottom bar to start searching!",
+                text = stringResource(R.string.welcome_text2),
                 style = MaterialTheme.typography.bodyLarge,
                 fontWeight = FontWeight.Bold
             )
@@ -67,13 +70,17 @@ fun HomeScreen(
                 }
             }
         ) {
-            Text(text = "Search")
+            Text(text = stringResource(R.string.discover_button))
         }
+
+        HorizontalDivider(
+            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
+        )
 
         Label(
             label = { }) {
             Text(
-                text = "Made by:",
+                text = stringResource(R.string.welcome_madeby),
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -81,7 +88,7 @@ fun HomeScreen(
         Label(
             label = { }) {
             Text(
-                text = "Fedor Danilov",
+                text = stringResource(R.string.welcome_madeby_name),
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -89,7 +96,7 @@ fun HomeScreen(
         Label(
             label = { }) {
             Text(
-                text = "For HoGent project",
+                text = stringResource(R.string.welcome_for),
                 style = MaterialTheme.typography.bodyLarge
             )
         }
@@ -97,17 +104,17 @@ fun HomeScreen(
         Label(
             label = { }) {
             Text(
-                text = "Powered by",
+                text = stringResource(R.string.welcome_poweredby),
                 style = MaterialTheme.typography.bodyLarge
             )
         }
 
         Image(
             painter = painterResource(
-            id = com.androidproject.R.drawable.tmdb
+            id = R.drawable.tmdb
             ),
             contentDescription = "TMDB",
-            modifier = Modifier.size(50.dp, 50.dp)
+            modifier = Modifier.size(100.dp, 100.dp)
         )
     }
 }
