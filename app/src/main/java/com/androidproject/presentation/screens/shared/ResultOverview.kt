@@ -7,7 +7,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
 
@@ -19,7 +21,7 @@ fun ResultOverview(
     handleMovie: (movie: Movie) -> Unit
 ) {
     if (movies.isEmpty()) {
-        Text(text = "No internet connection")
+        Text(text = stringResource(R.string.no_connection))
     } else {
         LazyVerticalGrid(
             columns = GridCells.Fixed(1),

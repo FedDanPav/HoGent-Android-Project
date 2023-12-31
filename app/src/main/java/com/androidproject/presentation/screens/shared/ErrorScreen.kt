@@ -26,7 +26,7 @@ fun ErrorScreen(modifier: Modifier = Modifier, error: String?) {
         Image(
             modifier = modifier.size(200.dp),
             painter = painterResource(id = R.drawable.priority_high_24px),
-            contentDescription = "Error"
+            contentDescription = stringResource(R.string.error)
         )
         Text(
             text = error ?: stringResource(id = R.string.error),

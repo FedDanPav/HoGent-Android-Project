@@ -19,4 +19,5 @@
     <string name="welcome_madeby_name">Fedor Danilov</string>
     <string name="welcome_for">For HoGent project</string>
     <string name="welcome_poweredby">Powered by</string>
+    <string name="no_connection">No connection</string>
 </resources>
