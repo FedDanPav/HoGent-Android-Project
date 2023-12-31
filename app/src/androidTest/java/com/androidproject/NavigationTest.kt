@@ -26,6 +26,12 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+/**
+ * Navigation tests for the app.
+ * @property device the device to use.
+ * @property navController the nav controller to use.
+ * @property testGenre the test disease to use.
+ */
 @RunWith(AndroidJUnit4::class)
 class NavigationTest {
     private lateinit var device: UiDevice
@@ -35,9 +41,17 @@ class NavigationTest {
         "TestGenre"
     )
 
+    /**
+     * The rule to use for the tests.
+     */
     @get:Rule
     val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
+    /**
+     * The setup method for the tests.
+     * Sets the content of the test rule to the navController.
+     * Sets the device to the UiDevice.
+     */
     @Before
     fun setupNavHost() {
         composeTestRule.setContent {
@@ -48,11 +62,17 @@ class NavigationTest {
         device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
     }
 
+    /**
+     * Tests the start destination of the navController.
+     */
     @Test
     fun navHost_verifyStartDestination() {
         navController.assertCurrentRouteName(Destinations.HOME_ROUTE)
     }
 
+    /**
+     * Tests if the navController navigates to the correect screen when clicking on the Home button
+     */
     @Test
     fun navigateToHomeScreen_navigatesCorrectly() {
         composeTestRule.onNodeWithContentDescription("Home", useUnmergedTree = true)
@@ -61,6 +81,10 @@ class NavigationTest {
         navController.assertCurrentRouteName(Destinations.HOME_ROUTE)
     }
 
+    /**
+     * Tests if the navController navigates to the correect screen when clicking
+     * on the Search button and then the Discover button
+     */
     @Test
     fun navigateToSearchResultsScreen_navigatesCorrectly() {
         composeTestRule.onNodeWithContentDescription("Search", useUnmergedTree = true)
@@ -87,6 +111,9 @@ class NavigationTest {
         navController.assertCurrentRouteName(Destinations.SEARCH_RESULTS_ROUTE)
     }
 
+    /**
+     * Tests if the navController navigates to the correect screen when clicking on the Saved button
+     */
     @Test
     fun navigateToSavedMoviesScreen_navigatesCorrectly() {
         composeTestRule.onNodeWithContentDescription("Saved", useUnmergedTree = true)
@@ -95,6 +122,9 @@ class NavigationTest {
         navController.assertCurrentRouteName(Destinations.SAVED_MOVIES)
     }
 
+    /**
+     * A function to assert the current route name
+     */
     private fun NavController.assertCurrentRouteName(expectedRouteName: String) {
         assertEquals(expectedRouteName, currentBackStackEntry?.destination?.route)
     }
