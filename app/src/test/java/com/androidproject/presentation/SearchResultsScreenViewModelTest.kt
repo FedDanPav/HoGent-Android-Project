@@ -22,6 +22,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * Tests for the [SearchResultsScreenViewModelTest]
+ * @property viewModel the mocked [SearchResultsScreenViewModel] which will be tested
+ * @property mockGenreRepository the mocked [GenreRepository]
+ * @property mockMovieRepository the mocked [MovieRepository]
+ * @property savedStateHandle the mocked [SavedStateHandle] with fake args
+ * @property testDispatcher the [StandardTestDispatcher]
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class SearchResultsScreenViewModelTest {
     private lateinit var viewModel: SearchResultsScreenViewModel
@@ -67,6 +75,9 @@ class SearchResultsScreenViewModelTest {
         clearAllMocks()
     }
 
+    /**
+     * Tests if [SearchResultsScreenViewModel.load] calls [GenreRepository.getGenres]
+     */
     @Test
     fun `load() should call repository getGenres`() = runTest {
         viewModel.load(TestData.testMovieArgsMap)
@@ -76,6 +87,10 @@ class SearchResultsScreenViewModelTest {
         coEvery { mockMovieRepository.getMovies(any()) }
     }
 
+    /**
+     * Tests if [SearchResultsScreenViewModel.load] returns [Resource.Success] and a list of data
+     * after the repository call returns valid data
+     */
     @Test
     fun `load() should return success state on successful data fetch`() = runTest {
         coEvery { mockGenreRepository.getGenres() } returns Resource.Success(listOf(TestData.testGenre))
@@ -91,6 +106,10 @@ class SearchResultsScreenViewModelTest {
         TestCase.assertTrue(movieState is Resource.Success && movieState.data == listOf(TestData.testMovie))
     }
 
+    /**
+     * Tests if [SearchResultsScreenViewModel.load] returns [Resource.Error] if the
+     * repository call fails
+     */
     @Test
     fun `load() should return error state on repository failure`() = runTest {
         val errorMessage = "Error fetching"
@@ -107,6 +126,10 @@ class SearchResultsScreenViewModelTest {
         TestCase.assertTrue(movieState is Resource.Error && movieState.message == errorMessage)
     }
 
+    /**
+     * Tests if [SearchResultsScreenViewModel] can successfully send requests to the repository
+     * to save and then delete a movie
+     */
     @Test
     fun `saveMovie() saves the required movie and deleteMovie() deletes it`() = runTest {
         viewModel.saveMovie(TestData.testMovie)

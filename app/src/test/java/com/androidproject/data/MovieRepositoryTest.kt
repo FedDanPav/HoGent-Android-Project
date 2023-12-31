@@ -24,6 +24,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * Tests for the [MovieRepository]
+ * @property mockApi the mocked [TheMovieDBApi]
+ * @property mockMovieDao the mocked [MovieDao]
+ * @property mockMovieToGenreDao the mocked [MovieToGenreDao]
+ * @property movieRepository the mocked [MovieRepository] which will be tested
+ * @property testDispatcher the [StandardTestDispatcher]
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class MovieRepositoryTest {
     private val mockApi = mockk<TheMovieDBApi>()
@@ -56,6 +64,10 @@ class MovieRepositoryTest {
         clearAllMocks()
     }
 
+    /**
+     * Tests if the [MovieRepository.getMovies] returns [Resource.Success] when the API
+     * call returns valid data
+     */
     @Test
     fun `getMovies returns success with valid data from API`() = runTest {
         coEvery { mockApi.getMovies(TestData.testMovieArgsMap) } returns TestData.testMovieRequestDto
@@ -67,6 +79,9 @@ class MovieRepositoryTest {
         assertEquals(listOf(TestData.testMovie), result.data)
     }
 
+    /**
+     * Tests if the [MovieRepository.getMovies] returns [Resource.Error] when the API call fails
+     */
     @Test
     fun `getMovies returns an error due to API fail`() = runTest {
         coEvery { mockApi.getMovies(TestData.testMovieArgsMap) } throws Exception("API Error")
@@ -77,6 +92,10 @@ class MovieRepositoryTest {
         assertTrue(result is Resource.Error)
     }
 
+    /**
+     * Tests if the [MovieRepository] can sucessfully add and remove a movie from
+     * the local database
+     */
     @Test
     fun `saveMovie upserts the required movie to the database and then deletes it`() = runTest {
         coEvery { mockMovieToGenreDao.getGenresByMovieId(any()) } returns TestData.testMovieToGenreEntities
@@ -95,6 +114,9 @@ class MovieRepositoryTest {
         coVerify { mockMovieToGenreDao.deleteMoviesToGenres(TestData.testMovieToGenreEntities) }
     }
 
+    /**
+     * Tests if [MovieRepository.getSavedMovies] returns the saved movie from the local database
+     */
     @Test
     fun `getSavedMovies returns the saved movies from the database`() = runTest {
         coEvery { mockMovieDao.getMovies() } returns listOf(TestData.testMovieEntity)
@@ -109,6 +131,10 @@ class MovieRepositoryTest {
         assertEquals(TestData.testMovieSaved, result.data!!.first())
     }
 
+    /**
+     * Tests if the [MovieRepository.getSavedMovies] returns an [Resource.Error] if the the list
+     * from the local database returns empty
+     */
     @Test
     fun `getSavedMovies returns an empty list from the database`() = runTest {
         coEvery { mockMovieDao.getMovies() } returns emptyList()

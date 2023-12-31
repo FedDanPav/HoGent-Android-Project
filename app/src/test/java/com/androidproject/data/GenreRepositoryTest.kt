@@ -23,6 +23,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * Tests for the [GenreRepository]
+ * @property mockApi the mocked [TheMovieDBApi]
+ * @property mockGenreDao the mocked [GenreDao]
+ * @property genreRepository the mocked [GenreRepository] which will be tested
+ * @property testDispatcher the [StandardTestDispatcher]
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class GenreRepositoryTest {
     private val mockApi = mockk<TheMovieDBApi>()
@@ -49,6 +56,10 @@ class GenreRepositoryTest {
         clearAllMocks()
     }
 
+    /**
+     * Tests if the [GenreRepository.getGenres] method returns [Resource.Success] when the API
+     * call returns valid data
+     */
     @Test
     fun `getGenres returns success with valid data from the API`() = runTest {
         coEvery { mockApi.getMovieGenres() } returns TestData.testGenreRequestDto
@@ -63,6 +74,10 @@ class GenreRepositoryTest {
         coVerify { mockGenreDao.upsertGenres(any()) }
     }
 
+    /**
+     * Tests if the [GenreRepository.getGenres] method returns [Resource.Error] when the API
+     * call fails
+     */
     @Test
     fun `getGenres returns data from the database when API fails to respond`() = runTest {
         coEvery { mockApi.getMovieGenres() } throws Exception("API Error")

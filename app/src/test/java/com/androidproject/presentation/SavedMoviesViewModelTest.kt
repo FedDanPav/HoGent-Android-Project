@@ -21,6 +21,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * Tests for the [SavedMoviesViewModel]
+ * @property viewModel the mocked [SavedMoviesViewModel] which will be tested
+ * @property mockGenreRepository the mocked [GenreRepository]
+ * @property mockMovieRepository the mocked [MovieRepository]
+ * @property testDispatcher the [StandardTestDispatcher]
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class SavedMoviesViewModelTest {
     private lateinit var viewModel: SavedMoviesViewModel
@@ -65,6 +72,9 @@ class SavedMoviesViewModelTest {
         clearAllMocks()
     }
 
+    /**
+     * Tests if the [SavedMoviesViewModel.load] calls [GenreRepository.getGenres]
+     */
     @Test
     fun `load() should call repository getGenres`() = runTest {
         viewModel.load()
@@ -74,6 +84,10 @@ class SavedMoviesViewModelTest {
         coEvery { mockMovieRepository.getMovies(any()) }
     }
 
+    /**
+     * Tests if [SavedMoviesViewModel.load] returns [Resource.Success] and a list of data
+     * after the repository call returns valid data
+     */
     @Test
     fun `load() should return success state on successful data fetch`() = runTest {
         coEvery { mockGenreRepository.getGenres() } returns Resource.Success(listOf(TestData.testGenre))
@@ -90,6 +104,9 @@ class SavedMoviesViewModelTest {
         TestCase.assertTrue(movieState is Resource.Success && movieState.data == listOf(TestData.testMovie))
     }
 
+    /**
+     * Tests if [SavedMoviesViewModel.load] returns [Resource.Error] if the repository call fails
+     */
     @Test
     fun `load() should return error state on repository failure`() = runTest {
         val errorMessage = "Error fetching"
@@ -106,6 +123,10 @@ class SavedMoviesViewModelTest {
         TestCase.assertTrue(movieState is Resource.Error && movieState.message == errorMessage)
     }
 
+    /**
+     * Tests if [SavedMoviesViewModel] can successfully send requests to the repository to save
+     * and then delete a movie
+     */
     @Test
     fun `saveMovie() saves the required movie and deleteMovie() deletes it`() = runTest {
         viewModel.saveMovie(TestData.testMovie)

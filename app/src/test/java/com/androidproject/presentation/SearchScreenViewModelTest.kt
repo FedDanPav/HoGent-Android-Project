@@ -19,6 +19,12 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
+/**
+ * Tests for the [SearchScreenViewModel]
+ * @property viewModel the mocked [SearchScreenViewModel] which will be tested
+ * @property mockGenreRepository the mocked [GenreRepository]
+ * @property testDispatcher the [StandardTestDispatcher]
+ */
 @OptIn(ExperimentalCoroutinesApi::class)
 class SearchScreenViewModelTest {
     private lateinit var viewModel: SearchScreenViewModel
@@ -48,12 +54,18 @@ class SearchScreenViewModelTest {
         clearAllMocks()
     }
 
+    /**
+     * Tests if the initial state of [SearchScreenViewModel] is [Resource.Loading]
+     */
     @Test
     fun `initial state should be Loading`() = runTest {
         val initialState = viewModel.genresUiState.value
         TestCase.assertTrue(initialState is Resource.Loading)
     }
 
+    /**
+     * Tests if the [SearchScreenViewModel.loadGenres] calls [GenreRepository.getGenres]
+     */
     @Test
     fun `loadGenres() should call repository getGenres`() = runTest {
         viewModel.loadGenres()
@@ -62,6 +74,10 @@ class SearchScreenViewModelTest {
         coEvery { mockGenreRepository.getGenres() }
     }
 
+    /**
+     * Tests if the [SearchScreenViewModel.loadGenres] returns [Resource.Success] when the
+     * repository call is successful
+     */
     @Test
     fun `loadGenres() should return success state on successful data fetch`() = runTest {
         coEvery { mockGenreRepository.getGenres() } returns Resource.Success(listOf(TestData.testGenre))
@@ -73,9 +89,13 @@ class SearchScreenViewModelTest {
         TestCase.assertTrue(state is Resource.Success && state.data == listOf(TestData.testGenre))
     }
 
+    /**
+     * Tests if the [SearchScreenViewModel.loadGenres] returns [Resource.Error] when the
+     * repository call fails
+     */
     @Test
-    fun `getGenres() should return error state on repository failure`() = runTest {
-        val errorMessage = "Error fetching posts"
+    fun `loadGenres() should return error state on repository failure`() = runTest {
+        val errorMessage = "Error fetching genres"
         coEvery { mockGenreRepository.getGenres() } returns Resource.Error(errorMessage)
 
         viewModel.loadGenres()

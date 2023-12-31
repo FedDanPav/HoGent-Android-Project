@@ -11,6 +11,9 @@ import com.androidproject.model.toGenreEntity
 import com.androidproject.model.toMovieEntity
 import com.androidproject.model.toMovieToGenreEntity
 
+/**
+ * Fake test data to use in the tests of the presentation and data layers
+ */
 object TestData {
     private val testGenreDto = GenreDto(
         100,
