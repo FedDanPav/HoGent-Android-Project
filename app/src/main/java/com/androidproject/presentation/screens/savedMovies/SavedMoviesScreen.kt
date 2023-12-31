@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
-import com.androidproject.presentation.screens.searchResults.ResultOverview
+import com.androidproject.presentation.screens.shared.ResultOverview
 import com.androidproject.presentation.screens.shared.ErrorScreen
 import com.androidproject.presentation.screens.shared.LoadingScreen
 import com.androidproject.util.Resource

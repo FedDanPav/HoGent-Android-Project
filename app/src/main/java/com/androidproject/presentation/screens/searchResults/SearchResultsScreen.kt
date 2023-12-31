@@ -15,6 +15,7 @@ import com.androidproject.model.Genre
 import com.androidproject.model.Movie
 import com.androidproject.presentation.screens.shared.ErrorScreen
 import com.androidproject.presentation.screens.shared.LoadingScreen
+import com.androidproject.presentation.screens.shared.ResultOverview
 import com.androidproject.util.Resource
 
 @Composable

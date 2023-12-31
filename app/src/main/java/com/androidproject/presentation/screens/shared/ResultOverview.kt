@@ -1,4 +1,4 @@
-package com.androidproject.presentation.screens.searchResults
+package com.androidproject.presentation.screens.shared
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
-import com.androidproject.presentation.screens.shared.MovieCard
 
 
 @Composable
