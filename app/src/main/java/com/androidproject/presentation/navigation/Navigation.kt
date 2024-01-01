@@ -16,6 +16,13 @@ import com.androidproject.presentation.screens.savedMovies.SavedMoviesScreen
 import com.androidproject.presentation.screens.search.SearchScreen
 import com.androidproject.presentation.screens.searchResults.SearchResultsScreen
 
+/**
+ * The different destinations in the app
+ * @property HOME_ROUTE the home route
+ * @property SEARCH_ROUTE the search route
+ * @property SEARCH_RESULTS_ROUTE the search results route
+ * @property SAVED_MOVIES the saved movies route
+ */
 object Destinations {
     const val HOME_ROUTE = "home"
     const val SEARCH_ROUTE = "search"
@@ -23,6 +30,9 @@ object Destinations {
     const val SAVED_MOVIES = "savedmovies"
 }
 
+/**
+ * The navigation controller of the app.
+ */
 @Composable
 fun AppNavigation(
     navController: NavHostController = rememberNavController()

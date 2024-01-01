@@ -21,6 +21,14 @@ import com.androidproject.presentation.navigation.Destinations.HOME_ROUTE
 import com.androidproject.presentation.navigation.Destinations.SAVED_MOVIES
 import com.androidproject.presentation.navigation.Destinations.SEARCH_ROUTE
 
+/**
+ * A bottom navigation bar that navigates between the different screens
+ * @property title the title of the screen
+ * @property selectedIcon the icon to display when the item is selected
+ * @property unselectedIcon the icon to display when the item is not selected
+ * @property badgeCount the number to display in the badge
+ * @property onClick the action to perform when the item is clicked
+ */
 data class BottomNavigationItem(
     val title: String,
     val selectedIcon: Int,
@@ -29,6 +37,11 @@ data class BottomNavigationItem(
     val route: String,
     val onClick: () -> Unit,
 )
+
+/**
+ * A bottom navigation bar that navigates between the different screens
+ * @param navHostController the nav host controller to use
+ */
 @Composable
 fun BottomBar(navHostController: NavHostController) {
     val items = listOf(
@@ -69,6 +82,7 @@ fun BottomBar(navHostController: NavHostController) {
         }
     )
 
+    // Dynamically update the selected item index based on the current route
     var selectedItemIndex by rememberSaveable {
         mutableIntStateOf(getDefaultSelectedItemIndex(items, "Home"))
     }
@@ -105,10 +119,19 @@ fun BottomBar(navHostController: NavHostController) {
     }
 }
 
+/**
+ * Gets the index of the default selected item
+ * @param items the items to search in
+ * @param defaultItemTitle the title of the default item
+ * @return the index of the default selected item
+ */
 fun getDefaultSelectedItemIndex(items: List<BottomNavigationItem>, defaultItemTitle: String): Int {
     return items.indexOfFirst { it.title == defaultItemTitle }
 }
 
+/**
+ * Preview of the [BottomBar]
+ */
 @Composable
 @Preview
 fun BottomBarPreview() {
