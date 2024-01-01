@@ -18,6 +18,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * he view model for [SearchResultsScreen]
+ * @param genreRepository the [GenreRepository] to retrieve required data
+ * @param movieRepository the [MovieRepository] to retrieve required data
+ */
 class SearchResultsScreenViewModel (
     savedStateHandle: SavedStateHandle,
     private val genreRepository: GenreRepository,
@@ -33,11 +38,21 @@ class SearchResultsScreenViewModel (
 
     val genresUiState : StateFlow<Resource<List<Genre>>> = _genres.asStateFlow()
     val moviesUiState : StateFlow<Resource<List<Movie>>> = _movies.asStateFlow()
+
+    /**
+     * Requests the [MovieRepository] to save a given [Movie]
+     * @param input [Movie]
+     */
     fun saveMovie(input: Movie) {
         viewModelScope.launch {
             movieRepository.saveMovie(input)
         }
     }
+
+    /**
+     * Requests the [MovieRepository] to delete a [Movie]
+     * @param input [Movie]
+     */
     fun deleteMovie(input: Movie) {
         viewModelScope.launch {
             movieRepository.removeMovie(input)
@@ -54,6 +69,9 @@ class SearchResultsScreenViewModel (
         load(argsMap)
     }
 
+    /**
+     * Loads the needed information
+     */
     fun load(args : Map<String, String>) {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
@@ -64,6 +82,9 @@ class SearchResultsScreenViewModel (
         }
     }
 
+    /**
+     * Factory object for [SearchResultsScreenViewModel]
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {

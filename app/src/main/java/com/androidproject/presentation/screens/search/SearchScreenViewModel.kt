@@ -14,10 +14,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
+/**
+ * he view model for [SearchScreen]
+ * @param genreRepository the [GenreRepository] to retrieve required data
+ */
 class SearchScreenViewModel (
     private val genreRepository: GenreRepository,
 ) : ViewModel()  {
-    // initial value is Loading
     private val _genres = MutableStateFlow<Resource<List<Genre>>>(
         Resource.Loading()
     )
@@ -27,6 +30,9 @@ class SearchScreenViewModel (
         loadGenres()
     }
 
+    /**
+     * Loads the needed information
+     */
     fun loadGenres() {
         viewModelScope.launch {
             val genresResource = genreRepository.getGenres()
@@ -34,6 +40,9 @@ class SearchScreenViewModel (
         }
     }
 
+    /**
+     * Factory object for [SearchScreenViewModel]
+     */
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
