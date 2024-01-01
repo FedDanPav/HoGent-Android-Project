@@ -5,6 +5,11 @@ import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
+/**
+ * A database entity for the many-to-many relations between movies and genres
+ * @param movieId a foreign key of a movie
+ * @param genreId a foreign key of a genre
+ */
 @Entity(
     tableName = "movies_to_genres",
     foreignKeys = [

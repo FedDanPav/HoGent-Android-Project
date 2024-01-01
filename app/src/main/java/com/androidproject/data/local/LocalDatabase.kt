@@ -11,6 +11,10 @@ import com.androidproject.data.local.entity.GenreEntity
 import com.androidproject.data.local.entity.MovieEntity
 import com.androidproject.data.local.entity.MovieToGenreEntity
 
+/**
+ * The local database used in this app
+ * Contains [MovieEntity], [GenreEntity] and [MovieToGenreEntity]
+ */
 @Database(
     entities = [
         MovieEntity::class,
@@ -21,11 +25,29 @@ import com.androidproject.data.local.entity.MovieToGenreEntity
     exportSchema = false
 )
 abstract class LocalDatabase : RoomDatabase() {
+    /**
+     * Gets the [MovieDao]
+     * @return [MovieDao]
+     */
     abstract fun movieDao(): MovieDao
+
+    /**
+     * Gets the [GenreDao]
+     * @return [GenreDao]
+     */
     abstract fun genreDao(): GenreDao
+
+    /**
+     * Gets the [MovieToGenreEntity]
+     * @return [MovieToGenreEntity]
+     */
     abstract fun movieToGenreDao(): MovieToGenreDao
 
+    /**
+     * Companion object for the database to make sure there is only one instance of it.
+     */
     companion object {
+        // Singleton prevents multiple instances of database opening at the same time.
         @Volatile
         private var INSTANCE : LocalDatabase? = null
 
