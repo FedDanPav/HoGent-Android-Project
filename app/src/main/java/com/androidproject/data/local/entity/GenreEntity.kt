@@ -7,8 +7,8 @@ import com.androidproject.model.Genre
 
 /**
  * A database entity for the genres
- * @param id an id used by the TMDB to find and identify genres
- * @param name a name of the genre
+ * @property id an id used by the TMDB to find and identify genres
+ * @property name a name of the genre
  */
 @Entity(tableName = "genres")
 data class GenreEntity(

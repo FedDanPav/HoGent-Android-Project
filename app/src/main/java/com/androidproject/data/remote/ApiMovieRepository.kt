@@ -9,18 +9,52 @@ import com.androidproject.model.toMovieEntity
 import com.androidproject.model.toMovieToGenreEntity
 import com.androidproject.util.Resource
 
+/**
+ * The repository handling the movies
+ */
 interface MovieRepository {
+    /**
+     * Gets genres
+     * @param args [Map] of search arguments from the user-selected options
+     * @return a [Resource] list of [Movie]
+     */
     suspend fun getMovies(args: Map<String, String>): Resource<List<Movie>>
+
+    /**
+     * Saves a provided movie to the local database
+     * @param movie a valid [Movie]
+     */
     suspend fun saveMovie(movie: Movie)
+
+    /**
+     * Deletes a provided movie from the local database
+     * @param movie a valid [Movie]
+     */
     suspend fun removeMovie(movie: Movie)
+
+    /**
+     * Gets all saved movies from the local database
+     * @return a [Resource] list of saved [Movie]
+     */
     suspend fun getSavedMovies(): Resource<List<Movie>>
 }
 
+/**
+ * The implementation of the [MovieRepository]
+ * @param tmdbApi the instance of [TheMovieDBApi]
+ * @param movieDao the instance of [MovieDao]
+ * @param movieToGenreDao the instance of [MovieToGenreDao]
+ */
 class ApiMovieRepository (
     private val tmdbApi : TheMovieDBApi,
     private val movieDao: MovieDao,
     private val movieToGenreDao: MovieToGenreDao
 ) : MovieRepository {
+    /**
+     * Implementation of [MovieRepository.getMovies]
+     * @param args [Map] of search arguments from the user-selected options
+     * @return a [Resource] list of [Movie]
+     */
     override suspend fun getMovies(args: Map<String, String>): Resource<List<Movie>> {
         return try {
             val movies = tmdbApi.getMovies(args).toDomainList()
@@ -31,16 +65,28 @@ class ApiMovieRepository (
         }
     }
 
+    /**
+     * Implementation of [MovieRepository.saveMovie]
+     * @param movie a valid [Movie]
+     */
     override suspend fun saveMovie(movie: Movie) {
         movieDao.upsertMovie(movie.toMovieEntity())
         movieToGenreDao.upsertMoviesToGenres(movie.toMovieToGenreEntity())
     }
 
+    /**
+     * Implementation of [MovieRepository.removeMovie]
+     * @param movie a valid [Movie]
+     */
     override suspend fun removeMovie(movie: Movie) {
         movieToGenreDao.deleteMoviesToGenres(movieToGenreDao.getGenresByMovieId(movie.id))
         movieDao.deleteMovie(movieDao.getMovieById(movie.id).first())
     }
 
+    /**
+     * Implementation of [MovieRepository.getSavedMovies]
+     * @return a [Resource] list of saved [Movie]
+     */
     override suspend fun getSavedMovies(): Resource<List<Movie>> {
         return try {
             val savedMovies = movieDao.getMovies().map { it.toMovie() }

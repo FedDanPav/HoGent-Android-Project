@@ -7,12 +7,12 @@ import com.androidproject.model.Movie
 
 /**
  * A database entity for the movies
- * @param id a movieId used by the TMDB to find and identify the movie
- * @param title title of the movie
- * @param overview a description of the movie
- * @param originalLanguage the original language of the movie
- * @param voteAverage the average vote
- * @param voteCount the amount of people who shared a vote on the movie
+ * @property id a movieId used by the TMDB to find and identify the movie
+ * @property title title of the movie
+ * @property overview a description of the movie
+ * @property originalLanguage the original language of the movie
+ * @property voteAverage the average vote
+ * @property voteCount the amount of people who shared a vote on the movie
  */
 @Entity(tableName = "movies")
 data class MovieEntity(

@@ -8,14 +8,30 @@ import com.androidproject.model.Genre
 import com.androidproject.model.toGenreEntity
 import com.androidproject.util.Resource
 
+/**
+ * The repository handling the genres
+ */
 interface GenreRepository {
+    /**
+     * Gets genres
+     * @return a [Resource] list of [Genre]
+     */
     suspend fun getGenres(): Resource<List<Genre>>
 }
 
+/**
+ * The implementation of the [GenreRepository]
+ * @param tmdbApi the instance of [TheMovieDBApi]
+ * @param genreDao the instance of [GenreDao]
+ */
 class ApiGenreRepository (
     private val tmdbApi : TheMovieDBApi,
     private val genreDao: GenreDao
 ) : GenreRepository {
+    /**
+     * The implementation of [GenreRepository.getGenres]
+     * @return a [Resource] list of [Genre]
+     */
     override suspend fun getGenres(): Resource<List<Genre>> {
         return try {
             val genres = tmdbApi.getMovieGenres().toDomainList()
