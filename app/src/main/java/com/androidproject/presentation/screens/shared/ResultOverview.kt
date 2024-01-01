@@ -13,7 +13,13 @@ import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
 
-
+/**
+ * A result overview that is run by different screens
+ * Currently required in SearchResultScreen and SavedMoviesScreen
+ * @param genres a list of genres
+ * @param movies a list of movies which should be displayed
+ * @param handleMovie a method that will either add or delete the movie from the local database
+ */
 @Composable
 fun ResultOverview(
     genres : List<Genre>,

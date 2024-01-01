@@ -19,6 +19,13 @@ import com.androidproject.R
 import com.androidproject.model.Genre
 import com.androidproject.model.Movie
 
+/**
+ * A movie card that is displayed by various screens
+ * Currently required in SearchResultScreen and SavedMoviesScreen
+ * @param movie the movie that shuold be displayed
+ * @param genres a list of genres
+ * @param buttonMethod a method that will either add or delete the movie from the local database
+ */
 @Composable
 fun MovieCard(
     movie: Movie,

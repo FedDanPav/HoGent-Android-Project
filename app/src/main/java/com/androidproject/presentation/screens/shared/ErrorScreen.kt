@@ -16,6 +16,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.androidproject.R
 
+/**
+ * The screen that displays an error
+ * @param modifier the modifier to apply
+ * @param error the error to display
+ */
 @Composable
 fun ErrorScreen(modifier: Modifier = Modifier, error: String?) {
     Column(

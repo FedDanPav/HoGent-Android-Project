@@ -10,6 +10,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.androidproject.R
 
+/**
+ * The screen that apprears when data is loading
+ * @param modifier the modifier to apply
+ */
 @Composable
 fun LoadingScreen(modifier: Modifier = Modifier) {
     Image(
@@ -19,6 +23,9 @@ fun LoadingScreen(modifier: Modifier = Modifier) {
     )
 }
 
+/**
+ * The preview of [LoadingScreen].
+ */
 @Preview(showBackground = true)
 @Composable
 fun LoadingScreenPreview() {
