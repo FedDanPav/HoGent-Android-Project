@@ -18,6 +18,11 @@ import com.androidproject.presentation.screens.shared.LoadingScreen
 import com.androidproject.presentation.screens.shared.ResultOverview
 import com.androidproject.util.Resource
 
+/**
+ * THe search results screen
+ * @param paddingValues the padding values to use
+ * @param viewModel the view model to use
+ */
 @Composable
 fun SearchResultsScreen(
     paddingValues: PaddingValues,
@@ -43,6 +48,13 @@ fun SearchResultsScreen(
     )
 }
 
+/**
+ * THe saved movies screen
+ * @param paddingValues the padding values to use
+ * @param genreUiState the UI state of the genres
+ * @param movieUiState the UI state of the movies
+ * @param handleMovie a method that will either add or delete the movie from the local database
+ */
 @Composable
 fun SearchResultsScreen(
     paddingValues : PaddingValues,

@@ -42,6 +42,11 @@ import com.androidproject.presentation.screens.shared.LoadingScreen
 import com.androidproject.util.Resource
 import java.lang.IndexOutOfBoundsException
 
+/**
+ * THe search  screen
+ * @param paddingValues the padding values to use
+ * @param viewModel the view model to use
+ */
 @Composable
 fun SearchScreen(
     paddingValues: PaddingValues,
@@ -59,6 +64,12 @@ fun SearchScreen(
     )
 }
 
+/**
+ * THe saved movies screen
+ * @param paddingValues the padding values to use
+ * @param genreUiState the UI state of the genres
+ * @param navigateToSearchResults the navigation method passed from Navigation
+ */
 @Composable
 fun SearchScreen(
     paddingValues : PaddingValues,
@@ -97,8 +108,16 @@ fun SearchScreen(
     }
 }
 
+/**
+ * A mutable list of [Pair] that contains all user-chosen search options
+ */
 val searchOptions = mutableStateListOf<Pair<String, String>>()
 
+/**
+ * A column responsible for the generation and display of all search options
+ * @param genres a list of [Genre]
+ * @param navigateToSearchResults the navigation method passed from Navigation
+ */
 @Composable
 fun SearchOptions(
     genres: List<Genre>,
@@ -111,6 +130,7 @@ fun SearchOptions(
     ) {
         searchOptions.add(Pair(first = "include_video", second = "false"))
 
+        // displays all user-input-based search string search options
         itemsIndexed(movieSearchOptionsStrings) { index, option ->
             Column {
                 Card(
@@ -143,6 +163,7 @@ fun SearchOptions(
         }
     }
 
+    // displays a set of checkboxes for the boolean search options
     LazyColumn {
         items(movieSearchOptionsBools) { option ->
             run {
@@ -171,6 +192,7 @@ fun SearchOptions(
 
     HorizontalDivider()
 
+    // displays the Discover button
     OutlinedButton(
         onClick = {
             navigateToSearchResults(
@@ -184,6 +206,10 @@ fun SearchOptions(
     }
 }
 
+/**
+ * Displays a menu with all the possible genres
+ * @param genres a list of [Genre]
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GenresForSearch(genres: List<Genre>) {

@@ -24,6 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.androidproject.R
 
+/**
+ * The home screen
+ * @param paddingValues the padding values to use
+ * @param navToSearch the navigation method passed from Navigation
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
@@ -119,6 +124,9 @@ fun HomeScreen(
     }
 }
 
+/**
+ * Preview of [HomeScreen]
+ */
 @Composable
 @Preview(showBackground = true)
 fun HomeScreenPreview() {
