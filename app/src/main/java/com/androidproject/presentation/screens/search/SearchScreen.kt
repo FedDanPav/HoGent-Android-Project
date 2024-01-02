@@ -158,13 +158,12 @@ fun SearchOptions(
                 )
             }
         }
+
         item {
             GenresForSearch(genres = genres)
         }
-    }
 
-    // displays a set of checkboxes for the boolean search options
-    LazyColumn {
+        // displays a set of checkboxes for the boolean search options
         items(movieSearchOptionsBools) { option ->
             run {
                 var boxChecked by remember { mutableStateOf(false) }
@@ -188,21 +187,25 @@ fun SearchOptions(
                 }
             }
         }
-    }
 
-    HorizontalDivider()
-
-    // displays the Discover button
-    OutlinedButton(
-        onClick = {
-            navigateToSearchResults(
-                searchOptions.joinToString("&") {
-                    "${it.first}=${it.second}"
-                }
-            )
+        item {
+            HorizontalDivider()
         }
-    ) {
-        Text(text = stringResource(R.string.discover_button))
+
+        item {
+            // displays the Discover button
+            OutlinedButton(
+                onClick = {
+                    navigateToSearchResults(
+                        searchOptions.joinToString("&") {
+                            "${it.first}=${it.second}"
+                        }
+                    )
+                }
+            ) {
+                Text(text = stringResource(R.string.discover_button))
+            }
+        }
     }
 }
 
