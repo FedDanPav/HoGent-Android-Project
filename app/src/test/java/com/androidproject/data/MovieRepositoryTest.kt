@@ -41,7 +41,7 @@ class MovieRepositoryTest {
     private val testDispatcher = StandardTestDispatcher()
 
     /**
-     * Sets up the tests.
+     * Sets up the tests
      */
     @Before
     fun setUp() {
@@ -56,7 +56,7 @@ class MovieRepositoryTest {
     }
 
     /**
-     * Tears down the tests.
+     * Tears down the tests
      */
     @After
     fun tearDown() {

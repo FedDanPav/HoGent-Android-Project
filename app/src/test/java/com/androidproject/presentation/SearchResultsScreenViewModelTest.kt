@@ -40,7 +40,7 @@ class SearchResultsScreenViewModelTest {
     private val testDispatcher = StandardTestDispatcher()
 
     /**
-     * Sets up the tests.
+     * Sets up the tests
      */
     @Before
     fun setUp() {
@@ -67,7 +67,7 @@ class SearchResultsScreenViewModelTest {
     }
 
     /**
-     * Tears down the tests.
+     * Tears down the tests
      */
     @After
     fun tearDown() {
