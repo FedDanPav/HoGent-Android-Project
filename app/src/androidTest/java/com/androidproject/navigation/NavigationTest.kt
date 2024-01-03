@@ -1,4 +1,4 @@
-package com.androidproject
+package com.androidproject.navigation
 
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +15,7 @@ import androidx.navigation.testing.TestNavHostController
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
+import com.androidproject.TestData
 import com.androidproject.model.Genre
 import com.androidproject.presentation.navigation.AppNavigation
 import com.androidproject.presentation.navigation.Destinations
@@ -36,10 +37,7 @@ import org.junit.runner.RunWith
 class NavigationTest {
     private lateinit var device: UiDevice
     private lateinit var navController: TestNavHostController
-    private var testGenre : Genre = Genre(
-        100,
-        "TestGenre"
-    )
+    private var testGenre : Genre = TestData.testGenre
 
     /**
      * The rule to use for the tests.
